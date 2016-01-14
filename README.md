@@ -1,7 +1,7 @@
-Guardian interactive ES6 template
+Now and then image embeds
 =================================
 
-An interactive template & test harness, set up with commonly used components and example code
+Embeddable now and then images. Use this tool to easily generate them: https://interactive.guim.co.uk/2016/01/now-and-then-generator/
 
 Usage
 =====

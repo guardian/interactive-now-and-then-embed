@@ -2,7 +2,7 @@ import template from './text/main.html!text'
 import noUiSlider from './lib/nouislider'
 import iframeMessenger from 'guardian/iframe-messenger'
 
-export function init(el, content, context, config, mediator) {
+window.init = function init(el, content, context, config, mediator) {
     var metadata = document.location.search;
     var properties = {};
 

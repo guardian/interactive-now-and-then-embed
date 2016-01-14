@@ -1,16 +1,51 @@
+import template from './text/main.html!text'
+import noUiSlider from './lib/nouislider'
 import iframeMessenger from 'guardian/iframe-messenger'
-import reqwest from 'reqwest'
-import embedHTML from './text/embed.html!text'
 
-window.init = function init(el, config) {
-    iframeMessenger.enableAutoResize();
+window.init = function init(el, content, context, config, mediator) {
+    var metadata = document.location.search;
+    var properties = {};
 
-    el.innerHTML = embedHTML;
+    if(metadata){
+        metadata.replace('?','').split('&').forEach(function(property){
+            properties[property.split('=')[0]] = property.split('=')[1]
+        })
+    }
 
-    reqwest({
-        url: 'http://ip.jsontest.com/',
-        type: 'json',
-        crossOrigin: true,
-        success: (resp) => el.querySelector('.test-msg').innerHTML = `Your IP address is ${resp.ip}`
+    el.innerHTML = template;
+
+    var elWidth = el.getBoundingClientRect().width;
+    var isMobile = elWidth < 620 ? true : false;
+    var photoSize = isMobile ? "mobile" : "desktop";
+    
+    el.querySelector('#first-photo img').src = properties[photoSize + "_before"];
+    el.querySelector('#second-photo img').src = properties[photoSize + "_after"];
+
+    var slider = el.querySelector('#slider');
+    var sliderStateNow = el.querySelector('#slider-now');
+    var sliderStateThen = el.querySelector('#slider-then');
+
+    el.querySelector('.credit').innerHTML = decodeURIComponent(properties.credit);
+
+    sliderStateNow.innerHTML = decodeURIComponent(properties.label_after);
+    sliderStateThen.innerHTML = decodeURIComponent(properties.label_before);
+
+    noUiSlider.create(slider, {
+        start: [0],
+        step: 0.05,
+        animate:true,
+        range: {
+            'min': 0,
+            'max': 1
+        }
+    })
+
+    var firstPhoto = el.querySelector('#first-photo');
+    slider.noUiSlider.on('update', function( values, handle ) {
+        firstPhoto.style.opacity = values;
+        sliderStateNow.style.opacity = values;
+        sliderStateThen.style.opacity = 1 - values;
     });
-};
+
+    iframeMessenger.enableAutoResize();
+}
