@@ -15,7 +15,7 @@ window.init = function init(el, content, context, config, mediator) {
     el.innerHTML = template;
 
     var elWidth = el.getBoundingClientRect().width;
-    var isMobile = elWidth < 620 ? true : false;
+    var isMobile = elWidth < 480 ? true : false;
     var photoSize = isMobile ? "mobile" : "desktop";
     
     el.querySelector('#first-photo img').src = properties[photoSize + "_before"];
@@ -46,6 +46,14 @@ window.init = function init(el, content, context, config, mediator) {
         sliderStateNow.style.opacity = values;
         sliderStateThen.style.opacity = 1 - values;
     });
+
+    var photoContainer = el.querySelector('.fade-container');
+
+    photoContainer.addEventListener('click',function(){
+        var currentValue = slider.noUiSlider.get();
+        var newValue = currentValue > 0.5 ? 0 : 1;
+        slider.noUiSlider.set(newValue);
+    })
 
     iframeMessenger.enableAutoResize();
 }

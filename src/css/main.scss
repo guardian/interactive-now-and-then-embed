@@ -38,6 +38,7 @@ figure{
 		}
 		&:first-child{
 			position: absolute;
+			transition:opacity 0.2s;
 		}
 	}
 	#fade-metadata{
@@ -70,7 +71,10 @@ figure{
 		text-align: center;
 		position: relative;
 		&#slider-then{
-			top:-12px;
+			top:-8px;
+		}
+		&#slider-now{
+			top:2px;
 		}
 	}
 
@@ -83,6 +87,10 @@ figure{
 		display:inline-block;
 		padding-right:30px;
 		border:none;
+
+		.noUi-origin{
+			right:-30px;
+		}
 		
 		.noUi-handle{
 			height:30px;
@@ -92,7 +100,6 @@ figure{
 			border:none;
 			box-shadow:0 2px 2px rgba(0,0,0,0.1);
 			left:0;
-			right:-30px;
 			background:#4BC6DF;
 			cursor: -webkit-grab; cursor: -moz-grab;
 
