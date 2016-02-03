@@ -25,7 +25,10 @@ window.init = function init(el, content, context, config, mediator) {
     var sliderStateNow = el.querySelector('#slider-now');
     var sliderStateThen = el.querySelector('#slider-then');
 
-    el.querySelector('.credit').innerHTML = decodeURIComponent(properties.credit);
+    if(properties.credit){
+        el.querySelector('.credit').innerHTML = "<span>" + decodeURIComponent(properties.credit) + "</span";
+    }
+    
 
     sliderStateNow.innerHTML = decodeURIComponent(properties.label_after);
     sliderStateThen.innerHTML = decodeURIComponent(properties.label_before);

@@ -112,6 +112,13 @@ figure{
 			display:none;
 		}
 	}
+	p.credit{
+		margin:0;
+		span{
+			display:inline-block;
+			margin-top:6px;
+		}
+	}
 
 	@media(min-width:480px){
 		h1{
