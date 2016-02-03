@@ -18,8 +18,8 @@ window.init = function init(el, content, context, config, mediator) {
     var isMobile = elWidth < 480 ? true : false;
     var photoSize = isMobile ? "mobile" : "desktop";
     
-    el.querySelector('#first-photo img').src = properties[photoSize + "_before"];
-    el.querySelector('#second-photo img').src = properties[photoSize + "_after"];
+    el.querySelector('#first-photo img').src = properties[photoSize + "_after"];
+    el.querySelector('#second-photo img').src = properties[photoSize + "_before"];
 
     var slider = el.querySelector('#slider');
     var sliderStateNow = el.querySelector('#slider-now');
