@@ -52,10 +52,33 @@ window.init = function init(el, content, context, config, mediator) {
 
     var photoContainer = el.querySelector('.fade-container');
 
+    var fadeTimeout;
+
     photoContainer.addEventListener('click',function(){
-        var currentValue = slider.noUiSlider.get();
-        var newValue = currentValue > 0.5 ? 0 : 1;
-        slider.noUiSlider.set(newValue);
+        clearTimeout(fadeTimeout);
+        var currentValue = parseFloat(slider.noUiSlider.get());
+        var targetValue = currentValue > 0.5 ? 0 : 1;
+        var addUp = targetValue > currentValue ? true : false;
+        
+        function setSlider(){
+            fadeTimeout = setTimeout(function(){
+                if(addUp){
+                    currentValue += 0.05;
+                }else{
+                    currentValue -= 0.05;
+                }
+
+                slider.noUiSlider.set(currentValue);
+                
+                if(addUp && currentValue < targetValue){
+                    setSlider();
+                }else if(!addUp && currentValue > targetValue){
+                    setSlider();
+                }
+            },50)
+        }
+
+        setSlider();
     })
 
     iframeMessenger.enableAutoResize();
