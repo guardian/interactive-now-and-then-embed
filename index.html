@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Now and then generator - Guardian Visuals</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/fonts.css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <header>
+                <h1>Now-and-then image generator</h1>
+                <h2>Use this tool to create image sliders. Like <a href="http://www.theguardian.com/artanddesign/ng-interactive/2015/jun/22/american-civil-war-photography-interactive">this</a>, or <a href="http://www.theguardian.com/us-news/2016/feb/04/san-francisco-then-and-now-super-bowl-50">this one</a>. You need URLS to the images you want to use. The easiest way to do this, is to upload the images to the <a href="https://media.gutools.co.uk/">Grid</a>, and then drag the crops into this tool. For every image we need a small version for mobile - this should be around, but not less than 480px wide. For desktop the recommended size is 780px for normal articles, and 1300px for immersive articles.</h2>
+            </header>
+
+
+
+
+            <div id="form-container">
+                <form>
+                    <div class="before-container image-container">
+                        <h3>Before image</h3>
+                        <div class="dropzone">
+                            <p>Drag image from the grid <span>(Or fill in the fields below)</span></p>
+                            <div class="dragcapture"></div>
+                        </div>
+
+                        <div>
+                            <h4>small (480px wide)  <span class="alternativeSizes"></span></h4>
+                            <input type="text" name="mobile_before" class="mobile_input" value="http://media.guim.co.uk/67222cbde87dc147dd34041c2e8692b81f24f546/0_0_1204_1181/500.jpg">
+                        </div>
+
+                        <div>
+                            <h4>big (min 780px, max 1280px wide)  <span class="alternativeSizes"></span></h4>
+                            <input type="text" name="desktop_before" class="desktop_input" value="http://media.guim.co.uk/67222cbde87dc147dd34041c2e8692b81f24f546/0_0_1204_1181/1000.jpg">
+                        </div>                       
+
+                        <h4>Label</h4>
+                        <input type="text" name="label_before" value="Then">
+                    </div>
+
+                    <div class="after-container image-container">
+                        <h3>After image</h3>
+                        <div class="dropzone">
+                            <p>Drag image from the grid <span>(Or fill in the fields below)</span></p>
+                            <div class="dragcapture"></div>
+                        </div>
+                        
+                        <div>
+                        <h4>small (480px wide)  <span class="alternativeSizes"></span></h4>
+                        <input type="text" name="mobile_after" class="mobile_input" value="http://media.guim.co.uk/fdd3278393233ee0ad8ba55e32cabcbdee8b7a23/0_0_1204_1181/500.jpg">
+                        </div>
+
+                        <div>
+                        <h4>big (min 780px, max 1280px wide)  <span class="alternativeSizes"></span></h4>
+                        <input type="text" name="desktop_after" class="desktop_input" value="http://media.guim.co.uk/fdd3278393233ee0ad8ba55e32cabcbdee8b7a23/0_0_1204_1181/1000.jpg">
+                        </div>
+
+                        <h4>Label</h4>
+                        <input type="text" name="label_after" value="Now">
+                    </div>
+                </form>
+                <button id="create">Create now-and-then image</button>
+                <p id="edit-old-link">or edit an existing now-and-then-image</p>
+            </div>
+
+
+
+
+            <div id="result-container">
+                <div id="result-inner-container">
+                    <h2 id="result-title">Here's your now-and-then image <button class="to-mobile">Mobile preview</button><button class="to-desktop active">Desktop preview</button></h2>
+                    <div id="image-result">
+                        <iframe></iframe>
+                    </div>
+                    <h2>Embed this url into Composer</h2>
+                    <input type="textarea" value="" onClick="this.setSelectionRange(0, this.value.length)"/>
+                </div>
+            </div>
+        </div>
+        
+        <script src="js/vendor/jquery-1.11.1.min.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
