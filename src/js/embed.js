@@ -11,7 +11,7 @@ window.init = function init(el, content, context, config, mediator) {
             properties[property.split('=')[0]] = property.split('=')[1]
         })
     }
-
+    // test
     el.innerHTML = template;
 
     var elWidth = el.getBoundingClientRect().width;
