@@ -30,19 +30,16 @@ figure.element--immersive {
 
 .element--supporting{
     // float:right !important;
-    margin-left: 0 !important;
-    width:100% !important;
-    margin-top: 0 !important;
+    
+    width:6.75rem !important;
+    margin-top: 3px !important;
     margin-bottom: 0.75rem !important;
     margin-right: 0rem !important;
+    margin-left: 0 !important;
 
-
-    @media screen and (min-width: 740px) {
+    @media screen and (min-width: 980px) {
         margin-left: -6.75rem !important;
-        width:6.75rem !important;
-        margin-top: 3px !important;
-        margin-bottom: 0.75rem !important;
-        margin-right: 0rem !important;
+        
       }
 } 
 
