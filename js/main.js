@@ -48,6 +48,8 @@ document.addEventListener("drop", function(e) {
 	var dataObject = JSON.parse(dataText);
 	var assets = dataObject.assets;
 
+	console.log(assets);
+
 	var bigDimension = null;
 	var bigImage;
 
@@ -55,7 +57,7 @@ document.addEventListener("drop", function(e) {
 	var smallImage;
 
 	assets.forEach(function(e){
-		if(e.dimensions.width > 480){
+		if(e.dimensions.width >= 480){
 			if(smallDimension === null || e.dimensions.width - 480 < smallDimension){
 				smallDimension = e.dimensions.width - 480;
 				smallImage = e;
@@ -69,15 +71,24 @@ document.addEventListener("drop", function(e) {
 				bigImage = e;
 			}
 		}
-
 	})
 
 	fillInputFields(smallImage,bigImage, e.target.parentElement.parentElement,assets);
   }, false);
 
 function fillInputFields(smallImage,bigImage,target,assets){
-	target.querySelector('.mobile_input').value = smallImage.secureUrl;
-	target.querySelector('.desktop_input').value = bigImage.secureUrl;
+	if(smallImage){
+		target.querySelector('.mobile_input').value = smallImage.secureUrl;
+	}else{
+		target.querySelector('.mobile_input').value = ""
+	}
+
+	if(bigImage){
+		target.querySelector('.desktop_input').value = bigImage.secureUrl;
+	}else{
+		target.querySelector('.desktop_input').value = "";
+	}
+
 
 	var img = document.createElement('img');
 	img.src = smallImage.file;
@@ -97,9 +108,9 @@ function fillInputFields(smallImage,bigImage,target,assets){
 				e.target.classList.add('selectedSize');
 			})
 
-			if(asset.dimensions.width === smallImage.dimensions.width && i === 0){
+			if(smallImage && asset.dimensions.width === smallImage.dimensions.width && i === 0){
 				sizeButton.classList.add('selectedSize');
-			}else if(asset.dimensions.width === bigImage.dimensions.width && i===1){
+			}else if(bigImage && asset.dimensions.width === bigImage.dimensions.width && i===1){
 				sizeButton.classList.add('selectedSize');
 			}
 			otherSizes[i].appendChild(sizeButton)
