@@ -84,7 +84,7 @@ form{
 }
 
 .dropzone.dragging{
-	
+
 }
 
 .dropzone.dragging .dragcapture{
@@ -148,6 +148,11 @@ input{
 	border:1px solid #ddd;
 	box-shadow:none;
 	-webkit-transition:0.2s border-color;
+}
+
+input.is-error{
+	border-color: #e50000;
+	border-width:2px;
 }
 
 input:focus{
@@ -246,30 +251,14 @@ iframe{
 }
 
 #error-container{
-	margin-bottom:40px;
 	font-family:"Guardian Text Sans Web";
 	font-weight:bold;
 	color:#E50000;
+	text-align:center;
+	padding-top:10px;
 	display:none;
 }
 
 #error-container.active{
 	display:block;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

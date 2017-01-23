@@ -1,6 +1,5 @@
 var btn = document.querySelector('#create');
 var gridBtns = document.querySelectorAll('.insert-grid');
-var errors;
 var errorContainer = document.querySelector('#error-container');
 var dropzones = document.querySelectorAll('.dropzone');
 var translationTable = {
@@ -34,7 +33,7 @@ document.addEventListener("dragenter", function(e) {
 document.addEventListener("dragleave", function(e) {
 	if(e.target.className.indexOf('dragcapture') > -1){
 		e.target.parentElement.classList.remove('active');
-	}   
+	}
 }, false);
 
 document.addEventListener("drop", function(e) {
@@ -62,7 +61,7 @@ document.addEventListener("drop", function(e) {
 				smallImage = e;
 			}
 		}
-		
+
 
 		if(e.dimensions.width > 780){
 			if(bigDimension === null || e.dimensions.width - 780 < bigDimension){
@@ -70,7 +69,7 @@ document.addEventListener("drop", function(e) {
 				bigImage = e;
 			}
 		}
-		
+
 	})
 
 	fillInputFields(smallImage,bigImage, e.target.parentElement.parentElement,assets);
@@ -86,7 +85,7 @@ function fillInputFields(smallImage,bigImage,target,assets){
 	target.querySelector('.dropzone').innerHTML = img.outerHTML;
 
 	var otherSizes = target.querySelectorAll('.alternativeSizes');
-	
+
 	for(i=0; i<2; i++){
 		otherSizes[i].innerHTML = "";
 		assets.forEach(function(asset){
@@ -143,17 +142,39 @@ btn.addEventListener('click',function(e){
 	var url = base;
 	errors = [];
 
+	console.log(formData);
+
 	formData.forEach(function(p,i){
 		if(p.value == ""){
-			errors.push(translationTable[p.name] + " is empty");
+			if(p.name !== "label_after" && p.name !== "label_before"){
+				errors.push(p.name);
+			}
 		}
 		if(p.name=== "mobile_before" || p.name=== "desktop_before" || p.name=== "mobile_after" || p.name=== "desktop_after"){
 			p.value = p.value.replace("http://","//");
 			p.value = p.value.replace("https://","//");
 		}
+
+		document.querySelector('input[name="' + p.name + '"]').className -= " is-error";
+
 		values[p.name] = p.value;
-		url += p.name + "=" + p.value + "&";	
+		url += p.name + "=" + p.value + "&";
 	})
+
+	if(errors.length > 0){
+		errorContainer.innerHTML = "You haven't filled in all the fields yet";
+		errorContainer.style.display = "block";
+
+		errors.forEach(function(i,j){
+			console.log(i)
+			document.querySelector('input[name="' + i + '"]').className += " is-error";
+		})
+
+		return;
+	}else{
+		errorContainer.innerHTML = "";
+		errorContainer.style.display = "none";
+	}
 
 
 	// RESULTS
@@ -220,12 +241,11 @@ btn.addEventListener('click',function(e){
 				document.querySelector('iframe').src = document.querySelector('iframe').src
 			},500)
 		}
-		
-		
 
-		
+
+
+
 	})
 
 	window.scrollTo(0,500);
 })
-
