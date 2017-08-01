@@ -1,15 +1,45 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="<%= assetPath %>/main.css" />
 </head>
+
 <body>
     <div class="interactive-embed js-interactive"></div>
     <script src="<%= assetPath %>/embed.js"></script>
     <script>
-        init(document.querySelector('.js-interactive'), {'assetPath': '<%= assetPath %>'});
+    init(document.querySelector('.js-interactive'), { 'assetPath': '<%= assetPath %>' });
+    </script>
+    <script>
+	    var properties = {};
+	    var metadata = document.location.search;
+
+	    if (metadata) {
+	        metadata.replace('?', '').split('&').forEach(function(property) {
+	            properties[property.split('=')[0]] = property.split('=')[1]
+	        })
+	    }
+
+	    if (properties && properties.label) {
+	        (function(i, s, o, g, r, a, m) {
+	            i['GoogleAnalyticsObject'] = r;
+	            i[r] = i[r] || function() {
+	                (i[r].q = i[r].q || []).push(arguments)
+	            }, i[r].l = 1 * new Date();
+	            a = s.createElement(o),
+	                m = s.getElementsByTagName(o)[0];
+	            a.async = 1;
+	            a.src = g;
+	            m.parentNode.insertBefore(a, m)
+	        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+	        ga('create', 'UA-25353554-36', 'auto');
+	        ga("send", "event", properties.label, 'loaded');
+	    }
     </script>
 </body>
+
 </html>

@@ -2,12 +2,14 @@ import template from './text/main.html!text'
 import noUiSlider from './lib/nouislider'
 import iframeMessenger from 'guardian/iframe-messenger'
 
+var firstClick = true;
+
 window.init = function init(el, content, context, config, mediator) {
     var metadata = document.location.search;
     var properties = {};
 
-    if(metadata){
-        metadata.replace('?','').split('&').forEach(function(property){
+    if (metadata) {
+        metadata.replace('?', '').split('&').forEach(function(property) {
             properties[property.split('=')[0]] = property.split('=')[1]
         })
     }
@@ -17,7 +19,7 @@ window.init = function init(el, content, context, config, mediator) {
     var elWidth = el.getBoundingClientRect().width;
     var isMobile = elWidth < 480 ? true : false;
     var photoSize = isMobile ? "mobile" : "desktop";
-    
+
     el.querySelector('#first-photo img').src = properties[photoSize + "_after"];
     el.querySelector('#second-photo img').src = properties[photoSize + "_before"];
 
@@ -31,7 +33,7 @@ window.init = function init(el, content, context, config, mediator) {
     noUiSlider.create(slider, {
         start: [0],
         step: 0.05,
-        animate:true,
+        animate: true,
         range: {
             'min': 0,
             'max': 1
@@ -39,7 +41,10 @@ window.init = function init(el, content, context, config, mediator) {
     })
 
     var firstPhoto = el.querySelector('#first-photo');
-    slider.noUiSlider.on('update', function( values, handle ) {
+    slider.noUiSlider.on('update', function(values, handle) {
+        if (typeof ga !== 'undefined') {
+            fireAnalytics(properties);
+        }
         firstPhoto.style.opacity = values;
         sliderStateNow.style.opacity = values;
         sliderStateThen.style.opacity = 1 - values;
@@ -49,32 +54,40 @@ window.init = function init(el, content, context, config, mediator) {
 
     var fadeTimeout;
 
-    photoContainer.addEventListener('click',function(){
+    photoContainer.addEventListener('click', function() {
+        fireAnalytics(properties);
         clearTimeout(fadeTimeout);
         var currentValue = parseFloat(slider.noUiSlider.get());
         var targetValue = currentValue > 0.5 ? 0 : 1;
         var addUp = targetValue > currentValue ? true : false;
-        
-        function setSlider(){
-            fadeTimeout = setTimeout(function(){
-                if(addUp){
+
+        function setSlider() {
+            fadeTimeout = setTimeout(function() {
+                if (addUp) {
                     currentValue += 0.05;
-                }else{
+                } else {
                     currentValue -= 0.05;
                 }
 
                 slider.noUiSlider.set(currentValue);
-                
-                if(addUp && currentValue < targetValue){
+
+                if (addUp && currentValue < targetValue) {
                     setSlider();
-                }else if(!addUp && currentValue > targetValue){
+                } else if (!addUp && currentValue > targetValue) {
                     setSlider();
                 }
-            },50)
+            }, 50)
         }
 
         setSlider();
     })
 
     iframeMessenger.enableAutoResize();
+}
+
+function fireAnalytics(properties) {
+    if (properties.label && firstClick) {
+        firstClick = false;
+        ga("send", "event", properties.label, 'transitioned');
+    }
 }
