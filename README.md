@@ -1,7 +1,7 @@
-Now and then image embeds
+Guardian interactive ES6 template
 =================================
 
-Embeddable now and then images. Use this tool to easily generate them: https://interactive.guim.co.uk/2016/01/now-and-then-generator/
+An interactive template & test harness, set up with commonly used components and example code
 
 Usage
 =====
@@ -12,12 +12,23 @@ Setup
 
 Development
 -----------
-`grunt`
+`npm start`
 
 Production / deployment
 -----------------------
-1. Update `cfg/s3.json` and create `aws-keys.json` (copy from `aws-keys.example.json`)
-1. `grunt deploy`
+
+1. Update `cfg/s3.json`
+2. `grunt deploy`
+
+NOTE: Ensure you have AWS credentials setup by either adding them to your `~/.bashrc` or
+creating a `~/.aws/credentials` file with the following content:
+
+```
+[default]
+aws_access_key_id = <YOUR_ACCESS_KEY_ID>
+aws_secret_access_key = <YOUR_SECRET_ACCESS_KEY>
+```
+
 
 Using third party js
 --------------------

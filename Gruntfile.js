@@ -87,12 +87,13 @@ module.exports = function(grunt) {
         copy: {
             harness: {
                 files: [
-                    {expand: true, cwd: 'harness/', src: ['curl.js', 'index.html', 'immersive.html', 'interactive.html'], dest: 'build'},
+                    {expand: true, cwd: 'harness/', src: ['curl.js', 'index.html', 'immersive.html', 'interactive.html', 'app.html'], dest: 'build'},
                 ]
             },
             assets: {
                 files: [
                     {expand: true, cwd: 'src/', src: ['assets/**/*'], dest: 'build'},
+                    {expand: true, cwd: 'harness/', src: ['app-assets/**/*'], dest: 'build'},
                 ]
             },
             deploy: {
@@ -104,7 +105,9 @@ module.exports = function(grunt) {
                     },
                     { // ASSETS
                         expand: true, cwd: 'build/',
-                        src: ['main.js', 'main.css', 'main.js.map', 'main.css.map', 'embed.js', 'embed.js.map', 'assets/**/*'],
+                        src: ['main.js', 'main.css', 'main.js.map', 'main.css.map',
+                            'embed.js', 'embed.css', 'embed.js.map', 'embed.css.map',
+                            'assets/**/*'],
                         dest: 'deploy/<%= visuals.timestamp %>/<%= visuals.timestamp %>'
                     }
                 ]
@@ -151,11 +154,11 @@ module.exports = function(grunt) {
 
         aws_s3: {
             options: {
-                accessKeyId: '<%= visuals.aws.AWSAccessKeyID %>',
-                secretAccessKey: '<%= visuals.aws.AWSSecretKey %>',
                 region: 'us-east-1',
                 debug: grunt.option('dry'),
-                bucket: '<%= visuals.s3.bucket %>'
+                bucket: '<%= visuals.s3.bucket %>',
+                uploadConcurrency: 10, // 5 simultaneous uploads
+                downloadConcurrency: 10 // 5 simultaneous downloads
             },
             production: {
                 options: {
@@ -207,10 +210,8 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('loadDeployConfig', function() {
-        if (!grunt.file.exists('cfg/aws-keys.json')) grunt.fail.fatal('./cfg/aws-keys.json missing');
         grunt.config('visuals', {
             s3: grunt.file.readJSON('./cfg/s3.json'),
-            aws: grunt.file.readJSON('./cfg/aws-keys.json'),
             timestamp: Date.now(),
             jspmFlags: '-m',
             assetPath: '<%= visuals.s3.domain %><%= visuals.s3.path %>/<%= visuals.timestamp %>'
