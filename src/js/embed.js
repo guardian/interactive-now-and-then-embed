@@ -28,6 +28,8 @@ window.init = function init(el, config) {
         })
     }
 
+    var interactiveType = properties["type"] || "fader";
+
     // properties.desktop_before = "https://media.guim.co.uk/f55c177459f02193b0d19c083d3a5217a3b42d04/0_0_3702_2708/1000.jpg";
     // properties.desktop_after = "https://media.guim.co.uk/bf1ab4640975691dc677a79e89fe36757ceb2231/0_0_4264_4301/991.jpg";
     // properties.mobile_before = "";

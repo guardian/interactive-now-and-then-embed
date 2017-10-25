@@ -9,12 +9,18 @@ body {
 }
 
 .interactive-embed {
+	overflow: hidden;
+    padding: 0;
+    margin: 0;
+    
 }
 
 
 
 .interactive-now-and-then-container{
 	-webkit-font-smoothing:antialiased;
+	background-color: #efefef;
+	padding : 0 12px 12px 12px;
 	h1{
 		font-size:20px;
 		font-weight:bold;
@@ -42,6 +48,7 @@ body {
 		width:100%;
 		top:0;
 		left:0;
+		cursor: pointer;
 		img{
 			width:100%;
 			height:auto;
@@ -91,7 +98,7 @@ body {
 	#slider{
 		width:100px;
 		height:24px;
-		background:#efefef;
+		background:#dcdcdc;
 		border-radius:12px;
 		box-shadow:none;
 		display:inline-block;
