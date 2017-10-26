@@ -21,6 +21,7 @@ body {
 	-webkit-font-smoothing:antialiased;
 	background-color: #efefef;
 	padding : 0 12px 12px 12px;
+	position: relative;
 	h1{
 		font-size:20px;
 		font-weight:bold;
@@ -38,6 +39,75 @@ body {
 		color:#767676;
 	}
 
+	&.fader {
+		.image-heading {
+			display: none;
+		}
+
+		.view-container:nth-of-type(2) .photo-container {
+			position: absolute;
+			transition:opacity 0.2s;
+		}
+	}
+
+	&.slider {
+		.image-heading {
+			display: none;
+		}
+
+		.view-container:nth-of-type(2) .photo-container {
+			position: absolute;
+		}
+
+		#fade-metadata{
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		//bottom: 0;
+		height: 100%;
+		padding: 0;
+		margin: 0;
+		z-index: 500;
+		background: #ff0000;
+
+		&:after{
+			display:none;
+		}
+
+		}
+	}
+
+
+	&.duo {
+		.image-heading {
+			display: block;
+			font-size: 14px;
+			padding: 24px 0 12px 0;
+		}
+
+		#slider-container {
+			display: none;
+		}
+
+		@media(min-width:800px){
+
+		.view-container {
+			display: inline-block;
+			width: calc(50% - 3px);
+			margin-right: 6px;
+
+			&:nth-of-type(2) {
+				margin-right: 0;
+			}
+
+
+		}
+
+		}
+
+	}
+
 	.fade-container{
 		position: relative;
 		line-height: 0;
@@ -53,10 +123,10 @@ body {
 			width:100%;
 			height:auto;
 		}
-		&:first-child{
-			position: absolute;
-			transition:opacity 0.2s;
-		}
+		// &:first-of-type{
+		// 	position: absolute;
+		// 	transition:opacity 0.2s;
+		// }
 	}
 	#fade-metadata{
 		position: relative;
@@ -87,10 +157,10 @@ body {
 		display:block;
 		text-align: center;
 		position: relative;
-		&#slider-then{
+		&#slider-before{
 			top:-8px;
 		}
-		&#slider-now{
+		&#slider-after{
 			top:2px;
 		}
 	}

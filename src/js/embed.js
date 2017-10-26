@@ -19,7 +19,7 @@ window.init = function init(el, config) {
 
 	var metadata = document.location.search;
 
-    metadata = "mobile_before=//media.guim.co.uk/8a6284c68dc1bdaaa8d13f930b1d588679091f8d/0_0_4264_4301/496.jpg&desktop_before=//media.guim.co.uk/8a6284c68dc1bdaaa8d13f930b1d588679091f8d/0_0_4264_4301/991.jpg&label_before=Then&amp;mobile_after=//media.guim.co.uk/bf1ab4640975691dc677a79e89fe36757ceb2231/0_0_4264_4301/496.jpg&desktop_after=//media.guim.co.uk/bf1ab4640975691dc677a79e89fe36757ceb2231/0_0_4264_4301/991.jpg&label_after=Now&analytics_label=Berkley%20Square%20-%20Summer%20of%20Love%20Sliders%20-%2050%20years&";
+    metadata = "mobile_before=//media.guim.co.uk/8a6284c68dc1bdaaa8d13f930b1d588679091f8d/0_0_4264_4301/496.jpg&desktop_before=//media.guim.co.uk/8a6284c68dc1bdaaa8d13f930b1d588679091f8d/0_0_4264_4301/991.jpg&label_before=Then&amp;mobile_after=//media.guim.co.uk/bf1ab4640975691dc677a79e89fe36757ceb2231/0_0_4264_4301/496.jpg&mobile_after=//media.guim.co.uk/bf1ab4640975691dc677a79e89fe36757ceb2231/0_0_4264_4301/991.jpg&desktop_after=//media.guim.co.uk/bf1ab4640975691dc677a79e89fe36757ceb2231/0_0_4264_4301/991.jpg&desktop_after=//media.guim.co.uk/bf1ab4640975691dc677a79e89fe36757ceb2231/0_0_4264_4301/991.jpg&label_after=Now&analytics_label=Berkley%20Square%20-%20Summer%20of%20Love%20Sliders%20-%2050%20years&";
     var properties = {};
 
     if (metadata) {
@@ -29,6 +29,13 @@ window.init = function init(el, config) {
     }
 
     var interactiveType = properties["type"] || "fader";
+
+
+    //interactiveType = "duo";
+    interactiveType = "slider";
+
+
+    el.querySelector('#interactive-now-and-then-container').classList.add(interactiveType);
 
     // properties.desktop_before = "https://media.guim.co.uk/f55c177459f02193b0d19c083d3a5217a3b42d04/0_0_3702_2708/1000.jpg";
     // properties.desktop_after = "https://media.guim.co.uk/bf1ab4640975691dc677a79e89fe36757ceb2231/0_0_4264_4301/991.jpg";
@@ -44,15 +51,26 @@ window.init = function init(el, config) {
     var isMobile = elWidth < 480 ? true : false;
     var photoSize = isMobile ? "mobile" : "desktop";
 
-    el.querySelector('#first-photo img').src = properties[photoSize + "_after"];
-    el.querySelector('#second-photo img').src = properties[photoSize + "_before"];
+    el.querySelector('#first-photo img').src = properties[photoSize + "_before"];
+    el.querySelector('#second-photo img').src = properties[photoSize + "_after"];
+
+    if (interactiveType == "duo") {
+        var headingBefore = el.querySelector('#heading-before');
+        var headingAfter = el.querySelector('#heading-after');
+
+        headingBefore.innerHTML = decodeURIComponent(properties.label_before);
+        headingAfter.innerHTML = decodeURIComponent(properties.label_after);
+    }
+
+    else if (interactiveType == "fader") {
 
     var slider = el.querySelector('#slider');
-    var sliderStateNow = el.querySelector('#slider-now');
-    var sliderStateThen = el.querySelector('#slider-then');
+    var sliderStateBefore = el.querySelector('#slider-before');
+    var sliderStateAfter = el.querySelector('#slider-after');
+    
 
-    sliderStateNow.innerHTML = decodeURIComponent(properties.label_after);
-    sliderStateThen.innerHTML = decodeURIComponent(properties.label_before);
+    sliderStateBefore.innerHTML = decodeURIComponent(properties.label_before);
+    sliderStateAfter.innerHTML = decodeURIComponent(properties.label_after);
 
     noUiSlider.create(slider, {
         start: [0],
@@ -64,14 +82,14 @@ window.init = function init(el, config) {
         }
     })
 
-    var firstPhoto = el.querySelector('#first-photo');
+    var secondPhoto = el.querySelector('#second-photo');
     slider.noUiSlider.on('update', function(values, handle) {
         if (typeof ga !== 'undefined') {
             fireAnalytics(properties);
         }
-        firstPhoto.style.opacity = values;
-        sliderStateNow.style.opacity = values;
-        sliderStateThen.style.opacity = 1 - values;
+        secondPhoto.style.opacity = values;
+        sliderStateAfter.style.opacity = values;
+        sliderStateBefore.style.opacity = 1 - values;
     });
 
     var photoContainer = el.querySelector('.fade-container');
@@ -105,6 +123,8 @@ window.init = function init(el, config) {
 
         setSlider();
     })
+
+} // end if fader
 
     
 

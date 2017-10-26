@@ -1,20 +1,26 @@
-<div class="interactive-now-and-then-container">
+<div id="interactive-now-and-then-container" class="interactive-now-and-then-container">
     <div id="fade-metadata">
         <div id="slider-container">
             <div id="slider"></div>
             <div id="slider-states">
-                <span class="slider-state" id="slider-now">now</span>
-                <span class="slider-state" id="slider-then">then</span>
+                <span class="slider-state" id="slider-before"></span>
+                <span class="slider-state" id="slider-after"></span>
             </div>
         </div>
     </div>
     <div class="fade-container">
+        <div class="view-container">
+        <span class="image-heading" id="heading-before"></span>
         <div class="photo-container" id="first-photo">
             <img src="" />
         </div>
+    </div>
+        <div class="view-container">
+        <span class="image-heading" id="heading-after"></span>
         <div class="photo-container" id="second-photo">
             <img src="" />
         </div>
+    </div>
         <div id="toggle-view">toggle view</div>
     </div>
 </div>
