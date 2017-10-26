@@ -62,19 +62,30 @@ window.init = function init(el, config) {
         headingAfter.innerHTML = decodeURIComponent(properties.label_after);
     }
 
-    else if (interactiveType == "fader") {
+    else if (interactiveType == "fader" || interactiveType == "slider") {
 
     var slider = el.querySelector('#slider');
     var sliderStateBefore = el.querySelector('#slider-before');
     var sliderStateAfter = el.querySelector('#slider-after');
+
+    var start = 0;
+    var step = 0.05;
+
+    if (interactiveType == "slider") {
+
+        start = 0.5;
+        step = 0.001;
+
+
+    }
     
 
     sliderStateBefore.innerHTML = decodeURIComponent(properties.label_before);
     sliderStateAfter.innerHTML = decodeURIComponent(properties.label_after);
 
     noUiSlider.create(slider, {
-        start: [0],
-        step: 0.05,
+        start: [start],
+        step: step,
         animate: true,
         range: {
             'min': 0,
@@ -83,13 +94,24 @@ window.init = function init(el, config) {
     })
 
     var secondPhoto = el.querySelector('#second-photo');
+    slider.noUiSlider.on('start', function(){
+    secondPhoto.classList.remove("slider-transition");
+    });
+     slider.noUiSlider.on('end', function(){
+    secondPhoto.classList.add("slider-transition");
+    });
     slider.noUiSlider.on('update', function(values, handle) {
         if (typeof ga !== 'undefined') {
             fireAnalytics(properties);
         }
+
+        if (interactiveType == "fader") {
         secondPhoto.style.opacity = values;
         sliderStateAfter.style.opacity = values;
         sliderStateBefore.style.opacity = 1 - values;
+        } else if (interactiveType == "slider") {
+        secondPhoto.style.width = values * 100 + "%";
+        }
     });
 
     var photoContainer = el.querySelector('.fade-container');
@@ -98,6 +120,7 @@ window.init = function init(el, config) {
 
     photoContainer.addEventListener('click', function() {
         fireAnalytics(properties);
+        
         clearTimeout(fadeTimeout);
         var currentValue = parseFloat(slider.noUiSlider.get());
         var targetValue = currentValue > 0.5 ? 0 : 1;
@@ -117,11 +140,11 @@ window.init = function init(el, config) {
                     setSlider();
                 } else if (!addUp && currentValue > targetValue) {
                     setSlider();
-                }
+                } 
             }, 50)
         }
 
-        setSlider();
+        //setSlider();
     })
 
 } // end if fader
