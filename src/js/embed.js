@@ -74,7 +74,7 @@ window.init = function init(el, config) {
     if (interactiveType == "slider") {
 
         start = 0.5;
-        step = 0.001;
+        step = 0.00000000001;
 
 
     }
@@ -89,11 +89,12 @@ window.init = function init(el, config) {
         animate: true,
         range: {
             'min': 0,
-            'max': 1
+            'max': 100
         }
     })
 
     var secondPhoto = el.querySelector('#second-photo');
+    //var origin =el.querySelector('.noUi-origin');
     slider.noUiSlider.on('start', function(){
     secondPhoto.classList.remove("slider-transition");
     });
@@ -107,10 +108,14 @@ window.init = function init(el, config) {
 
         if (interactiveType == "fader") {
         secondPhoto.style.opacity = values;
-        sliderStateAfter.style.opacity = values;
-        sliderStateBefore.style.opacity = 1 - values;
+        sliderStateAfter.style.opacity = values / 100;
+        sliderStateBefore.style.opacity = 1 - (values / 100);
         } else if (interactiveType == "slider") {
-        secondPhoto.style.width = values * 100 + "%";
+
+            //console.log(origin.style.left);
+            //origin =el.querySelector('.noUi-origin');
+        secondPhoto.style.width = values + "%";
+        //secondPhoto.style.width = origin.style.left;
         }
     });
 
@@ -144,7 +149,7 @@ window.init = function init(el, config) {
             }, 50)
         }
 
-        //setSlider();
+        setSlider();
     })
 
 } // end if fader
