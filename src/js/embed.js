@@ -33,6 +33,7 @@ window.init = function init(el, config) {
 
     //interactiveType = "duo";
     interactiveType = "slider";
+    //interactiveType = "fader";
 
 
     el.querySelector('#interactive-now-and-then-container').classList.add(interactiveType);
