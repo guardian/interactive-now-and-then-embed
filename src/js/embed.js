@@ -38,47 +38,75 @@ window.init = function init(el, config) {
 
     el.querySelector('#interactive-now-and-then-container').classList.add(interactiveType);
 
-    // properties.desktop_before = "https://media.guim.co.uk/f55c177459f02193b0d19c083d3a5217a3b42d04/0_0_3702_2708/1000.jpg";
-    // properties.desktop_after = "https://media.guim.co.uk/bf1ab4640975691dc677a79e89fe36757ceb2231/0_0_4264_4301/991.jpg";
-    // properties.mobile_before = "";
-    // properties.mobile_after = "";
-    // properties.label_after = "Now";
-    // properties.label_before = "Then";
-
-
-    //el.innerHTML = template;
 
     var elWidth = el.getBoundingClientRect().width;
     var isMobile = elWidth < 480 ? true : false;
     var photoSize = isMobile ? "mobile" : "desktop";
 
+    // Add image srcs
+
     el.querySelector('#first-photo img').src = properties[photoSize + "_before"];
     el.querySelector('#second-photo img').src = properties[photoSize + "_after"];
 
-    if (interactiveType == "duo") {
+    var slider, start, step;
+    var sliderStateBefore, sliderStateAfter;
+
+
+
+    switch (interactiveType) {
+
+        case "duo" :
+
         var headingBefore = el.querySelector('#heading-before');
         var headingAfter = el.querySelector('#heading-after');
-
         headingBefore.innerHTML = decodeURIComponent(properties.label_before);
         headingAfter.innerHTML = decodeURIComponent(properties.label_after);
-    }
 
-    else if (interactiveType == "fader" || interactiveType == "slider") {
+        break;
 
-    var slider = el.querySelector('#slider');
-    var sliderStateBefore = el.querySelector('#slider-before');
-    var sliderStateAfter = el.querySelector('#slider-after');
 
-    var start = 0;
-    var step = 0.05;
+        case "fader" :
 
-    if (interactiveType == "slider") {
+        slider = el.querySelector('#slider');
+        start = 0;
+        step = 0.05;
+        sliderStateBefore = el.querySelector('#slider-before');
+        sliderStateAfter = el.querySelector('#slider-after');
 
+        break;
+
+
+        case "slider" :
+
+        slider = el.querySelector('#slider-2');
         start = 0.5;
         step = 0.00000000001;
+        sliderStateBefore = el.querySelector('#slider-before');
+        sliderStateAfter = el.querySelector('#slider-after');
+
+        break;
 
 
     }
+
+
+
+    if (interactiveType == "fader" || interactiveType == "slider") {
+
+    // var slider = el.querySelector('#slider');
+    // var sliderStateBefore = el.querySelector('#slider-before');
+    // var sliderStateAfter = el.querySelector('#slider-after');
+
+    // var start = 0;
+    // var step = 0.05;
+
+    // if (interactiveType == "slider") {
+
+    //     start = 0.5;
+    //     step = 0.00000000001;
+
+
+    // }
     
 
     sliderStateBefore.innerHTML = decodeURIComponent(properties.label_before);
