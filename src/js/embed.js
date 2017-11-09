@@ -48,7 +48,7 @@ window.init = function init(el, config) {
     el.querySelector('#first-photo img').src = properties[photoSize + "_before"];
     el.querySelector('#second-photo img').src = properties[photoSize + "_after"];
 
-    var slider, start, step;
+    var slider, start, step, min, max;
     var sliderStateBefore, sliderStateAfter;
 
 
@@ -70,6 +70,8 @@ window.init = function init(el, config) {
         slider = el.querySelector('#slider');
         start = 0;
         step = 0.05;
+        min = 0;
+        max = 1;
         sliderStateBefore = el.querySelector('#slider-before');
         sliderStateAfter = el.querySelector('#slider-after');
 
@@ -79,8 +81,10 @@ window.init = function init(el, config) {
         case "slider" :
 
         slider = el.querySelector('#slider-2');
-        start = 0.5;
+        start = 50;
         step = 0.00000000001;
+        min = 0;
+        max = 100;
         sliderStateBefore = el.querySelector('#slider-before');
         sliderStateAfter = el.querySelector('#slider-after');
 
@@ -117,8 +121,8 @@ window.init = function init(el, config) {
         step: step,
         animate: true,
         range: {
-            'min': 0,
-            'max': 100
+            'min': min,
+            'max': max
         }
     })
 
@@ -137,8 +141,8 @@ window.init = function init(el, config) {
 
         if (interactiveType == "fader") {
         secondPhoto.style.opacity = values;
-        sliderStateAfter.style.opacity = values / 100;
-        sliderStateBefore.style.opacity = 1 - (values / 100);
+        sliderStateAfter.style.opacity = values;
+        sliderStateBefore.style.opacity = 1 - values;
         } else if (interactiveType == "slider") {
 
             //console.log(origin.style.left);
@@ -148,12 +152,15 @@ window.init = function init(el, config) {
         }
     });
 
+    if (interactiveType == "fader") {
+
     var photoContainer = el.querySelector('.fade-container');
 
     var fadeTimeout;
 
     photoContainer.addEventListener('click', function() {
         fireAnalytics(properties);
+
         
         clearTimeout(fadeTimeout);
         var currentValue = parseFloat(slider.noUiSlider.get());
@@ -183,7 +190,7 @@ window.init = function init(el, config) {
 
 } // end if fader
 
-    
+}
 
 };
 
