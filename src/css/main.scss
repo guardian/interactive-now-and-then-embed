@@ -91,7 +91,7 @@ figure{
 		.noUi-origin{
 			right:-30px;
 		}
-		
+
 		.noUi-handle{
 			height:30px;
 			width:30px;
@@ -145,7 +145,7 @@ figure{
 -webkit-touch-callout: none;
 -webkit-user-select: none;
 -ms-touch-action: none;
-	touch-action: none;	
+	touch-action: none;
 -ms-user-select: none;
 -moz-user-select: none;
 -moz-box-sizing: border-box;
@@ -299,3 +299,30 @@ figure{
 	cursor: not-allowed;
 }
 
+.reveal {
+  height: 100%;
+  border-left: 4px solid #ffe500;
+  position: absolute;
+  right: 0;
+  cursor: col-resize;
+  font-size: 2.1rem;
+  font-weight: bold;
+  text-align: center;
+  line-height: 3.2rem;
+	z-index: 10000;
+}
+.reveal:after {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: #121212;
+  background: #ffe500;
+	background-image: url("/assets/slider-arrows.svg");
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+  position: absolute;
+  left: -26px; top: 0; bottom: 0;
+  margin: auto;
+}
