@@ -1,4 +1,5 @@
 @import "fonts";
+@import "palette";
 
 figure{
 	margin:0;
@@ -42,8 +43,12 @@ figure{
 		}
 	}
 	#fade-metadata{
-		position: relative;
+		display: flex;
+		align-items: center;
+		position: absolute;
 		margin-bottom:6px;
+		height: 100%;
+		width: 100%;
 		&:after{
 			clear:both;
 			display:block;
@@ -52,12 +57,18 @@ figure{
 	}
 	#slider-container{
 		width:auto;
-		float:right;
 		position: relative;
 		margin-top:4px;
+		height: 100%;
+		width: 100%;
 	}
 	#slider-states{
-		display:inline-block;
+		display:block;
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		top: 0px;
+		left: 0px;
 		&:after{
 			clear:both;
 			content:'';
@@ -65,23 +76,30 @@ figure{
 		}
 	}
 	.slider-state{
-		font-size:10px;
-		font-family:"Guardian Text Sans Web",Arial;
 		display:block;
-		text-align: center;
-		position: relative;
+		position: absolute;
+
+	@include fs-textSans(1);
+	font-weight: bold;
+	background: $neutral-7;
+	color: white;
+	display: inline-block;
+	float: left;
+	padding: 2px 6px;
+	margin: 0;
+	margin-top: 10px;
 		&#slider-then{
-			top:-8px;
+			left: 0px;
 		}
 		&#slider-now{
-			top:2px;
+			right: 0px;
 		}
 	}
 
 	#slider{
-		width:100px;
-		height:24px;
-		background:#efefef;
+		width: 100%;
+		height: 100%;
+		background: none;
 		border-radius:12px;
 		box-shadow:none;
 		display:inline-block;
@@ -93,23 +111,44 @@ figure{
 		}
 
 		.noUi-handle{
-			height:30px;
-			width:30px;
-			border-radius:15px;
+			width: 4px;
+			height: 100%;
+			border-left: 2px solid white;
+			color: #121212;
 			top:-3px;
-			border:none;
-			box-shadow:0 2px 2px rgba(0,0,0,0.1);
+			bottom: -2px;
 			left:0;
-			background:#4BC6DF;
-			cursor: -webkit-grab; cursor: -moz-grab;
+			background:$highlight-yellow;
+			cursor: col-resize;
 
 			&:active{
-				cursor: -webkit-grabbing; cursor: -moz-grabbing;
+				cursor: col-resize;
+			}
+
+			&:after {
+				  content: "";
+				  display: block;
+				  width: 44px;
+				  height: 44px;
+				  border-radius: 50%;
+					border:none;
+					box-shadow:0 2px 2px rgba(0,0,0,0.1);
+				  color: $neutral-7;
+				  background: $highlight-yellow;
+					background-image: url("/assets/slider-arrows.svg");
+					background-repeat: no-repeat;
+					background-position: 50% 50%;
+				  position: absolute;
+				  left: -22px;
+					top: 0;
+					bottom: 0;
+				  margin: auto;
+
 			}
 		}
 
 		.noUi-handle:before, .noUi-handle:after{
-			display:none;
+			// display:none;
 		}
 	}
 	p.credit{
@@ -125,11 +164,11 @@ figure{
 			font-size:22px;
 			padding-right:124px;
 		}
-		#slider{
-			width: 140px;
+		.slider-state {
+			@include fs-textSans(3);
 		}
-		#slider-states{
-			margin-right:10px;
+		#slider{
+			width: 100%;
 		}
 	}
 }
@@ -195,48 +234,48 @@ figure{
 
 /* Slider size and handle placement;
  */
-.noUi-horizontal {
-	height: 18px;
-}
-.noUi-horizontal .noUi-handle {
-	width: 34px;
-	height: 28px;
-	left: -17px;
-	top: -6px;
-}
-.noUi-vertical {
-	width: 18px;
-}
-.noUi-vertical .noUi-handle {
-	width: 28px;
-	height: 34px;
-	left: -6px;
-	top: -17px;
-}
+// .noUi-horizontal {
+// 	height: 18px;
+// }
+// .noUi-horizontal .noUi-handle {
+// 	width: 34px;
+// 	height: 28px;
+// 	left: -17px;
+// 	top: -6px;
+// }
+// .noUi-vertical {
+// 	width: 18px;
+// }
+// .noUi-vertical .noUi-handle {
+// 	width: 28px;
+// 	height: 34px;
+// 	left: -6px;
+// 	top: -17px;
+// }
 
 /* Styling;
  */
-.noUi-background {
-	background: #FAFAFA;
-	box-shadow: inset 0 1px 1px #f0f0f0;
-}
-.noUi-connect {
-	background: #3FB8AF;
-	box-shadow: inset 0 0 3px rgba(51,51,51,0.45);
--webkit-transition: background 450ms;
-	transition: background 450ms;
-}
-.noUi-origin {
-	border-radius: 2px;
-}
-.noUi-target {
-	border-radius: 4px;
-	border: 1px solid #D3D3D3;
-	box-shadow: inset 0 1px 1px #F0F0F0, 0 3px 6px -5px #BBB;
-}
-.noUi-target.noUi-connect {
-	box-shadow: inset 0 0 3px rgba(51,51,51,0.45), 0 3px 6px -5px #BBB;
-}
+// .noUi-background {
+// 	background: #FAFAFA;
+// 	box-shadow: inset 0 1px 1px #f0f0f0;
+// }
+// .noUi-connect {
+// 	background: #3FB8AF;
+// 	box-shadow: inset 0 0 3px rgba(51,51,51,0.45);
+// -webkit-transition: background 450ms;
+// 	transition: background 450ms;
+// }
+// .noUi-origin {
+// 	border-radius: 2px;
+// }
+// .noUi-target {
+// 	border-radius: 4px;
+// 	border: 1px solid #D3D3D3;
+// 	box-shadow: inset 0 1px 1px #F0F0F0, 0 3px 6px -5px #BBB;
+// }
+// .noUi-target.noUi-connect {
+// 	box-shadow: inset 0 0 3px rgba(51,51,51,0.45), 0 3px 6px -5px #BBB;
+// }
 
 /* Handles and cursors;
  */
@@ -263,30 +302,30 @@ figure{
 
 /* Handle stripes;
  */
-.noUi-handle:before,
-.noUi-handle:after {
-	content: "";
-	display: block;
-	position: absolute;
-	height: 14px;
-	width: 1px;
-	background: #E8E7E6;
-	left: 14px;
-	top: 6px;
-}
-.noUi-handle:after {
-	left: 17px;
-}
-.noUi-vertical .noUi-handle:before,
-.noUi-vertical .noUi-handle:after {
-	width: 14px;
-	height: 1px;
-	left: 6px;
-	top: 14px;
-}
-.noUi-vertical .noUi-handle:after {
-	top: 17px;
-}
+// .noUi-handle:before,
+// .noUi-handle:after {
+// 	content: "";
+// 	display: block;
+// 	position: absolute;
+// 	height: 14px;
+// 	width: 1px;
+// 	background: #E8E7E6;
+// 	left: 14px;
+// 	top: 6px;
+// }
+// .noUi-handle:after {
+// 	left: 17px;
+// }
+// .noUi-vertical .noUi-handle:before,
+// .noUi-vertical .noUi-handle:after {
+// 	width: 14px;
+// 	height: 1px;
+// 	left: 6px;
+// 	top: 14px;
+// }
+// .noUi-vertical .noUi-handle:after {
+// 	top: 17px;
+// }
 
 /* Disabled state;
  */
@@ -297,32 +336,4 @@ figure{
 [disabled].noUi-origin,
 [disabled] .noUi-handle {
 	cursor: not-allowed;
-}
-
-.reveal {
-  height: 100%;
-  border-left: 4px solid #ffe500;
-  position: absolute;
-  right: 0;
-  cursor: col-resize;
-  font-size: 2.1rem;
-  font-weight: bold;
-  text-align: center;
-  line-height: 3.2rem;
-	z-index: 10000;
-}
-.reveal:after {
-  content: "";
-  display: block;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  color: #121212;
-  background: #ffe500;
-	background-image: url("/assets/slider-arrows.svg");
-	background-repeat: no-repeat;
-	background-position: 50% 50%;
-  position: absolute;
-  left: -26px; top: 0; bottom: 0;
-  margin: auto;
 }

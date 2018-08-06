@@ -31,7 +31,7 @@ window.init = function init(el, content, context, config, mediator) {
     sliderStateThen.innerHTML = decodeURIComponent(properties.label_before);
 
     noUiSlider.create(slider, {
-        start: [0],
+        start: [0.5],
         step: 0.05,
         animate: true,
         range: {
