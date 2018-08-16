@@ -73,6 +73,10 @@ body {
 			&.slider-transition {
 				transition:width 0.3s;
 			}
+
+			&.slider-transition-initial {
+				animation: cd-bounce-in 0.7s;
+			}
 			
 
 			img {
@@ -80,6 +84,18 @@ body {
 				height: 100%;
 			}
 		}
+
+		@keyframes cd-bounce-in {
+  0% {
+    width: 0;
+  }
+  60% {
+    width: 55%;
+  }
+  100% {
+    width: 50%;
+  }
+}
 
 		#fade-metadata{
 		position: absolute;
@@ -128,6 +144,25 @@ body {
 			background: transparent;
 			margin-left: -15px;
 			//top: 50%;	
+			animation: cd-fade-in 0.9s;
+
+				@keyframes cd-fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.1);
+    -webkit-transform: scale(0.1);
+  }
+  60% {
+    opacity: 0;
+    transform: scale(0.1);
+    -webkit-transform: scale(0.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+  }
+}
 		
 
 		&::after {
