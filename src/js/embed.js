@@ -111,7 +111,7 @@ window.init = function init(el, config) {
 
 
     // }
-    
+
 
     sliderStateBefore.innerHTML = decodeURIComponent(properties.label_before);
     sliderStateAfter.innerHTML = decodeURIComponent(properties.label_after);
@@ -161,7 +161,7 @@ window.init = function init(el, config) {
     photoContainer.addEventListener('click', function() {
         fireAnalytics(properties);
 
-        
+
         clearTimeout(fadeTimeout);
         var currentValue = parseFloat(slider.noUiSlider.get());
         var targetValue = currentValue > 0.5 ? 0 : 1;
@@ -181,7 +181,7 @@ window.init = function init(el, config) {
                     setSlider();
                 } else if (!addUp && currentValue > targetValue) {
                     setSlider();
-                } 
+                }
             }, 50)
         }
 
@@ -200,9 +200,3 @@ function fireAnalytics(properties) {
         ga("send", "event", properties.label, 'transitioned');
     }
 }
-
-
-
-
-
-
