@@ -57,9 +57,30 @@ body {
 			display: none;
 		}
 
-		.image-heading {
-			display: none;
-		}
+    .image-heading {
+      display:block;
+      position: absolute;
+
+      @include fs-textSans(2);
+      font-weight: bold;
+      background: $neutral-7;
+      color: white;
+      display: inline-block;
+      float: left;
+      padding: 2px 6px;
+      margin: 0;
+      margin-top: 6px;
+        &#heading-before{
+          left: -6px;
+        }
+        &#heading-after{
+          left: -6px;
+        @media(min-width:800px){
+          left: inherit;
+          right: -6px;
+        }
+      }
+    }
 
 		#second-photo {
 			width: 50%;
@@ -168,33 +189,57 @@ body {
 
 
 		&::after {
-			content: "";
-			display: block;
-			height:30px;
-			width:30px;
-			border-radius:15px;
-			top: 50%;
-			margin-top: -15px;
-			border:none;
-			box-shadow:0 2px 2px rgba(0,0,0,0.1);
-			left:0;
-			background-color:$highlight-yellow;
-			cursor: -webkit-grab; cursor: -moz-grab;
-			background-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><g><path style="fill:#FFFFFF;" d="M20.3,10.1l0.9-0.9l5.4,5.4v0.7l-5.4,5.4l-0.9-0.9l2.9-3.8h-6.1v-2.1h6.1L20.3,10.1z M8.8,20.8
-		l-5.4-5.4v-0.7l5.4-5.4l1,0.9l-2.9,3.8h6v2.1h-6l2.9,3.8L8.8,20.8z"/></g></svg>');
+        content: "";
+			  display: block;
+			  width: 44px;
+			  height: 44px;
+			  border-radius: 50%;
+				border:none;
+				box-shadow:0 2px 2px rgba(0,0,0,0.1);
+			  color: $neutral-7;
+			  background: $highlight-yellow;
+        // cursor: -webkit-grab; cursor: -moz-grab;
+				background-image: url("/assets/imgs/slider-arrows.svg");
+				background-repeat: no-repeat;
+				background-position: 50% 50%;
+			  position: absolute;
+			  left: -7px;
+				top: 0;
+				bottom: 0;
+			  margin: auto;
+        cursor: col-resize;
+
+			&:active{
+				cursor: col-resize;
+			}
+
+		// 	content: "";
+		// 	display: block;
+		// 	height:30px;
+		// 	width:30px;
+		// 	border-radius:15px;
+		// 	top: 50%;
+		// 	margin-top: -15px;
+		// 	border:none;
+		// 	box-shadow:0 2px 2px rgba(0,0,0,0.1);
+		// 	left:0;
+		// 	background-color:$highlight-yellow;
+		// 	cursor: -webkit-grab; cursor: -moz-grab;
 		// 	background-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 // viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><g><path style="fill:#FFFFFF;" d="M14.7,4.4c-1.5,0-2.9,0.2-4.2,0.7C9.2,5.6,8,6.3,6.9,7.1L6.3,6.5c1-1.2,2.2-2.2,3.7-2.9
-		// c1.5-0.7,3-1.1,4.7-1.1c1.7,0,3.3,0.4,4.7,1.1c1.5,0.7,2.7,1.7,3.7,2.9l-0.6,0.6c-1.1-0.8-2.3-1.5-3.6-2C17.6,4.6,16.2,4.4,14.7,4.4z M22.5,16.7l-1.5,9.9H13l-0.7-3.4l-5-5v-0.7l1.3-1.3l3.8,2v0l1.4-11.3H16v7.3l6.1,1.8L22.5,16.7z"/></g></svg>');
-			background-repeat: no-repeat;
+	 // viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><g><path style="fill:#FFFFFF;" d="M20.3,10.1l0.9-0.9l5.4,5.4v0.7l-5.4,5.4l-0.9-0.9l2.9-3.8h-6.1v-2.1h6.1L20.3,10.1z M8.8,20.8
+		// l-5.4-5.4v-0.7l5.4-5.4l1,0.9l-2.9,3.8h6v2.1h-6l2.9,3.8L8.8,20.8z"/></g></svg>');
+		// // 	background-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 // // viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><g><path style="fill:#FFFFFF;" d="M14.7,4.4c-1.5,0-2.9,0.2-4.2,0.7C9.2,5.6,8,6.3,6.9,7.1L6.3,6.5c1-1.2,2.2-2.2,3.7-2.9
+		// // c1.5-0.7,3-1.1,4.7-1.1c1.7,0,3.3,0.4,4.7,1.1c1.5,0.7,2.7,1.7,3.7,2.9l-0.6,0.6c-1.1-0.8-2.3-1.5-3.6-2C17.6,4.6,16.2,4.4,14.7,4.4z M22.5,16.7l-1.5,9.9H13l-0.7-3.4l-5-5v-0.7l1.3-1.3l3.8,2v0l1.4-11.3H16v7.3l6.1,1.8L22.5,16.7z"/></g></svg>');
+		// 	background-repeat: no-repeat;
 
 		}
 
-		&:active{
-			&::after {
-				cursor: -webkit-grabbing; cursor: -moz-grabbing;
-			}
-			}
+		// &:active{
+		// 	&::after {
+		// 		cursor: -webkit-grabbing; cursor: -moz-grabbing;
+		// 	}
+		// 	}
 
 		}
 
