@@ -80,6 +80,8 @@ window.init = function init(el, config) {
 
         case "slider" :
 
+        var headingBefore = el.querySelector('#heading-before');
+        var headingAfter = el.querySelector('#heading-after');
         slider = el.querySelector('#slider-2');
         start = 50;
         step = 0.00000000001;
