@@ -62,6 +62,9 @@ body {
         .image-heading {
             display: block;
             position: absolute;
+            transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
 
             @include fs-textSans(2);
             font-weight: bold;
@@ -321,7 +324,7 @@ body {
         }
     }
 
-    .fade-container {
+    .photos-wrapper-container {
         position: relative;
         line-height: 0;
         font-size: 0;

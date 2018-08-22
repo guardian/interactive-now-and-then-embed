@@ -154,7 +154,7 @@ window.init = function init(el, config) {
 
         if (interactiveType == "fader") {
 
-            var photoContainer = el.querySelector('.fade-container');
+            var photoContainer = el.querySelector('.photos-wrapper-container');
 
             var fadeTimeout;
 
