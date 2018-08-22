@@ -25,7 +25,7 @@ body {
 
 .interactive-now-and-then-container {
     -webkit-font-smoothing: antialiased;
-    padding: 10px;
+    //padding: 10px;
     position: relative;
 
     // FADER STUFF
@@ -77,11 +77,13 @@ body {
             margin-top: 6px;
             opacity: 0;
             &#slider-heading-before {
-                left: -6px;
+                //left: -6px;
+                left: 0;
             }
             &#slider-heading-after {
                 //left: -6px;
-                right: -6px;
+                //right: -6px;
+                right: 0;
                 @media(min-width: 800px) {
                     //left: inherit;
                     //right: -6px;
@@ -170,6 +172,10 @@ body {
                 		opacity: 1;
                     	animation: cd-fade-in 0.9s;
                     }
+               }
+
+               .noUi-base {
+                overflow: hidden;
                }
 
 

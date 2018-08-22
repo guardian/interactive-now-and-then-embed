@@ -8,6 +8,8 @@ var intervalCheck;
 
 var sld;
 
+var interactiveType;
+
 window.init = function init(el, config) {
     iframeMessenger.enableAutoResize();
 
@@ -24,7 +26,7 @@ window.init = function init(el, config) {
         })
     }
 
-    var interactiveType = properties["type"] || "fader";
+    interactiveType = properties["type"] || "fader";
 
 
     //interactiveType = "duo";
@@ -222,8 +224,8 @@ function checkIfInView(d) {
     //var threshHold =  (d.iframeBottom - d.iframeTop) < currentValue ? true : false;
     var threshold = 300;
 
-    if (d.iframeTop < (d.innerHeight - threshold)) {
-        document.querySelector('#second-photo').classList.add("slider-transition-initial");
+    if (d.iframeTop < (d.innerHeight - threshold) && interactiveType == "slider") {
+    document.querySelector('#second-photo').classList.add("slider-transition-initial");
     document.querySelector('#slider-2').classList.add("fade-in");
     sld.updateOptions({
         start: [50]
