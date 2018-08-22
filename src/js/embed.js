@@ -132,8 +132,17 @@ window.init = function init(el, config) {
         slider.noUiSlider.on('start', function() {
             secondPhoto.classList.remove("slider-transition");
         });
-        slider.noUiSlider.on('end', function() {
+        slider.noUiSlider.on('end', function(values) {
             secondPhoto.classList.add("slider-transition");
+            if (interactiveType == "slider") {
+                if (values < 5) {
+                    slider.noUiSlider.set(0);
+                }
+
+                if (values > 95) {
+                     slider.noUiSlider.set(100);
+                }
+            }
         });
         slider.noUiSlider.on('update', function(values, handle) {
             if (typeof ga !== 'undefined') {
