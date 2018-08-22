@@ -27,22 +27,8 @@ body {
     -webkit-font-smoothing: antialiased;
     padding: 10px;
     position: relative;
-    h1 {
-        font-size: 20px;
-        font-weight: bold;
-        font-family: "Guardian Egyptian Web", "Guardian Text Egyptian Web", Georgia, serif;
-        padding-right: 104px;
-        line-height: 1.1em;
-        margin-top: 2px;
-    }
 
-    p {
-        margin-top: 6px;
-        margin-bottom: 0;
-        font-size: 12px;
-        font-family: "Guardian Text Sans Web", Arial, sans-serif;
-        color: #767676;
-    }
+    // FADER STUFF
 
     &.fader {
         .image-heading {
@@ -55,13 +41,21 @@ body {
         }
     }
 
+    // DUO STUFF
+
+    &.duo {
+       
+    }
+
+    // SLIDER STUFF
+
     &.slider {
 
     	#slider-heading-before, #slider-heading-after {
     		display: inline-block;
     	}
 
-        #slider-container {
+        #control-slider-container {
             display: none;
         }
 
@@ -299,7 +293,7 @@ body {
         }
 
 
-        #slider-container {
+        #control-slider-container {
             display: none;
         }
 
@@ -355,7 +349,7 @@ body {
             content: '';
         }
     }
-    #slider-container {
+    #control-slider-container {
         width: auto;
         float: right;
         position: relative;
@@ -383,7 +377,7 @@ body {
         }
     }
 
-    #slider {
+    #slider-1 {
         width: 100px;
         height: 24px;
         background: #dcdcdc;
@@ -435,7 +429,7 @@ body {
             font-size: 22px;
             padding-right: 124px;
         }
-        #slider {
+        #slider-1 {
             width: 140px;
         }
         #fader-control {

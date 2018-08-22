@@ -62,7 +62,7 @@ window.init = function init(el, config) {
 
         case "fader":
 
-            slider = el.querySelector('#slider');
+            slider = el.querySelector('#slider-1');
             start = 0;
             step = 0.05;
             min = 0;
