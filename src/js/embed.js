@@ -1,6 +1,7 @@
 import iframeMessenger from 'guardian/iframe-messenger'
 import embedHTML from './text/embed.html!text'
 import noUiSlider from 'nouislider'
+import detect from './detect'
 
 var firstClick = true;
 
@@ -203,7 +204,15 @@ window.init = function init(el, config) {
 
     }
 
+    iframeMessenger.getLocation(checkAndroidApp);
+
     intervalCheck = setInterval(fetchParentInfo, 300);
+
+    var base = el.querySelector('.noUi-base');
+
+    base.addEventListener("mouseup", function(){
+    el.querySelector('#second-photo').classList.add("slider-transition");
+}); 
 
 };
 
@@ -249,4 +258,23 @@ function fireAnalytics(properties) {
         firstClick = false;
         ga("send", "event", properties.label, 'transitioned');
     }
+}
+
+function checkAndroidApp(locationObj) {
+    //alert(locationObj.protocol);
+    //console.log("protocol=" + locationObj.protocol);
+    var isAndroidApp = ( detect.isAndroid() && (locationObj.protocol === "file://" || locationObj.protocol === "file:") ) ? true : false;
+
+    if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
+        var sliderEl = document.querySelector('.carousel-container');
+
+        sliderEl.addEventListener("touchstart", function(){
+            window.GuardianJSInterface.registerRelatedCardsTouch(true);
+        });
+        sliderEl.addEventListener("touchend", function(){
+            window.GuardianJSInterface.registerRelatedCardsTouch(false);
+        });
+    }
+
+
 }
