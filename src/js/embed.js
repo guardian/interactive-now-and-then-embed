@@ -145,13 +145,16 @@ window.init = function init(el, config) {
         })
 
         var secondPhoto = el.querySelector('#second-photo');
+        var origin = el.querySelector('.noUi-origin');
         //var origin =el.querySelector('.noUi-origin');
         slider.noUiSlider.on('start', function() {
             secondPhoto.classList.remove("slider-transition");
             secondPhoto.classList.remove("slider-transition-initial");
+            origin.classList.remove("origin-smooth");
         });
         slider.noUiSlider.on('end', function(values) {
             secondPhoto.classList.add("slider-transition");
+            origin.classList.add("origin-smooth");
             if (interactiveType == "slider") {
                 if (values < 5) {
                     slider.noUiSlider.set(0);
