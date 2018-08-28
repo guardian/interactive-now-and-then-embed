@@ -44,7 +44,7 @@ body {
     // DUO STUFF
 
     &.duo {
-       
+
     }
 
     // SLIDER STUFF
@@ -189,7 +189,7 @@ body {
                     opacity: 0;
 
 
-                    
+
 
                     @keyframes cd-fade-in {
                         0% {
@@ -296,7 +296,7 @@ body {
         .view-container {
             &:nth-of-type(1) {
                 padding-bottom: 5px;
-                border-bottom: 1px solid $neutral-70;
+                border-bottom: 1px solid $neutral-86;
                 margin-bottom: 5px;
             }
         }
@@ -313,7 +313,7 @@ body {
                 width: calc(50% - 6px);
                 margin-right: 5px;
                 padding-right: 5px;
-                border-right: 1px solid $neutral-70;
+                border-right: 1px solid $neutral-86;
 
                 &:nth-of-type(1) {
                     padding-bottom: 0px;
@@ -351,7 +351,10 @@ body {
     }
     #fade-metadata {
         position: relative;
-        margin-bottom: 6px;
+        padding-bottom: 4px;
+        padding-top: 4px;
+        border: 1px solid $neutral-86;
+        border-bottom: 0;
         &:after {
             clear: both;
             display: block;
@@ -359,41 +362,49 @@ body {
         }
     }
     #control-slider-container {
-        width: auto;
-        float: right;
-        position: relative;
-        margin-top: 4px;
+        display: grid;
+        grid-template-columns: 40px auto 40px;
+        grid-template-rows: 12px 12px 12px;
+        margin-left: 10px;
+        margin-right: 10px;
     }
-    #fader-control {
-        display: inline-block;
-        &:after {
-            clear: both;
-            content: '';
-            display: block;
-        }
+    #fader-control-1 {
+        // display: inline-block;
+        // &:after {
+        //     clear: both;
+        //     content: '';
+        //     display: block;
+        // }
+        grid-column: 1 / span 1;
+        grid-row: 2;
+    }
+    #fader-control-2 {
+        grid-column: 3 / span 1;
+        grid-row: 2;
     }
     .slider-state {
-        font-size: 10px;
+        font-size: 14px;
         font-family: "Guardian Text Sans Web", Arial;
         display: block;
-        text-align: center;
         position: relative;
-        &#slider-before {
-            top: -8px;
-        }
-        &#slider-after {
-            top: 2px;
-        }
+    }
+    #slider-before {
+      text-align: left;
+    }
+    #slider-after {
+      text-align: right;
     }
 
     #slider-1 {
-        width: 100px;
-        height: 24px;
-        background: #dcdcdc;
-        border-radius: 12px;
+        grid-column: 2 / span 1;
+        grid-row: 2;
+        align-self: center;
+        height: 2px;
+        background: $neutral-7;
+        border-radius: 1000px;
         box-shadow: none;
         display: inline-block;
-        padding-right: 30px;
+        padding-right: 24px;
         border: none;
 
         .noUi-origin {
@@ -402,18 +413,19 @@ body {
     }
 
     .noUi-handle {
-        height: 30px;
-        width: 30px;
-        border-radius: 15px;
-        top: -3px;
+        height: 24px;
+        width: 24px;
+        border-radius: 50%;
+        top: -10px;
         border: none;
         //box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
         box-shadow: none;
         left: 0;
-        background: #4BC6DF;
+        background: $neutral-7;
         cursor: -webkit-grab;
         cursor: -moz-grab;
         outline: none !important;
+        margin: 0px;
 
         &:active {
             cursor: -webkit-grabbing;
@@ -438,13 +450,21 @@ body {
             font-size: 22px;
             padding-right: 124px;
         }
-        #slider-1 {
-            width: 140px;
+        #fade-metadata {
+            width: 320px;
         }
         #fader-control {
             margin-right: 10px;
         }
     }
+      @media(min-width:860px) {
+        #fade-metadata {
+          left: 140px;
+        }
+        #fade-metadata {
+          left: 220px;
+        }
+      }
 }
 
 //nouislider

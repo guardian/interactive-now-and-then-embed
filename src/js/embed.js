@@ -212,7 +212,7 @@ window.init = function init(el, config) {
 
     base.addEventListener("mouseup", function(){
     el.querySelector('#second-photo').classList.add("slider-transition");
-}); 
+});
 
 };
 
