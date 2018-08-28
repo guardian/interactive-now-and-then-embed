@@ -430,11 +430,19 @@ body {
         border: none; //box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
         box-shadow: none;
         left: 0;
-        background: $neutral-7;
+        background: $highlight-yellow; // cursor: -webkit-grab; cursor: -moz-grab;
+        background-image: url("./assets/imgs/slider-arrows.svg");
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        position: absolute;
+        // left: -7px;
+        // top: 0;
+        // bottom: 0;
+        margin: auto;
         cursor: -webkit-grab;
         cursor: -moz-grab;
         outline: none !important;
-        margin: 0px;
+        // margin: 0px;
 
         &:active {
             cursor: -webkit-grabbing;
@@ -466,12 +474,14 @@ body {
             margin-right: 10px;
         }
     }
+    @media(min-width:780px) {
+      #fade-metadata {
+          left: 150px;
+      }
+    }
     @media(min-width:860px) {
         #fade-metadata {
-            left: 140px;
-        }
-        #fade-metadata {
-            left: 220px;
+            left: 230px;
         }
     }
 }
