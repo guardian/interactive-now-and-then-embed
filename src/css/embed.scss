@@ -374,7 +374,7 @@ body {
     #control-slider-container {
         display: grid;
         grid-template-columns: 40px auto 40px;
-        grid-template-rows: 12px 12px 12px;
+        grid-template-rows: 16px 16px 16px;
         margin-left: 10px;
         margin-right: 10px;
     }
@@ -409,13 +409,24 @@ body {
         grid-column: 2 / span 1;
         grid-row: 2;
         align-self: center;
-        height: 2px;
-        background: $neutral-7;
+        height: 32px;
+        background: none;
         border-radius: 1000px;
         box-shadow: none;
         display: inline-block;
-        padding-right: 24px;
+        padding-right: 36px;
         border: none;
+
+        &::before {
+          content:'';
+          display: block;
+          position: absolute;
+          top: 50%;
+          height: 2px;
+          background: $neutral-7;
+          border-radius: 1000px;
+          width: 100%;
+        }
 
         .noUi-origin {
             right: -30px;
@@ -423,26 +434,22 @@ body {
     }
 
     .noUi-handle {
-        height: 24px;
-        width: 24px;
+        height: 36px;
+        width: 36px;
         border-radius: 50%;
-        top: -10px;
-        border: none; //box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+        top: -2px;
+        border: none;
         box-shadow: none;
-        left: 0;
-        background: $highlight-yellow; // cursor: -webkit-grab; cursor: -moz-grab;
+        background: $highlight-yellow;
         background-image: url("./assets/imgs/slider-arrows.svg");
         background-repeat: no-repeat;
         background-position: 50% 50%;
+        background-size: 24px 10px;
         position: absolute;
-        // left: -7px;
-        // top: 0;
-        // bottom: 0;
         margin: auto;
         cursor: -webkit-grab;
         cursor: -moz-grab;
         outline: none !important;
-        // margin: 0px;
 
         &:active {
             cursor: -webkit-grabbing;
