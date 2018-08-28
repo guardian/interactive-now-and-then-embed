@@ -34,12 +34,21 @@ body {
             display: none;
         }
 
+        .noUi-origin {
+                        
+            &.origin-smooth {
+
+                        transition: left 0.2s linear;
+
+                    }
+                    }
+
         .view-container:nth-of-type(2) .photo-container {
             position: absolute;
             transition: opacity 0.2s;
         }
 
-           #fade-metadata {
+        #fade-metadata {
         position: relative;
         padding-bottom: 4px;
         padding-top: 4px;
