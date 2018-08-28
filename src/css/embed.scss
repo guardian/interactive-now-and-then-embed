@@ -17,21 +17,18 @@ body {
 }
 
 
-#slider-heading-before, #slider-heading-after, #duo-heading-before, #duo-heading-after {
-	display: none;
+#slider-heading-before,
+#slider-heading-after,
+#duo-heading-before,
+#duo-heading-after {
+    display: none;
 }
 
 
 
 .interactive-now-and-then-container {
-    -webkit-font-smoothing: antialiased;
-    //padding: 10px;
-    position: relative;
-
-    
-
-    // FADER STUFF
-
+    -webkit-font-smoothing: antialiased; //padding: 10px;
+    position: relative; // FADER STUFF
     &.fader {
         .image-heading {
             display: none;
@@ -41,21 +38,29 @@ body {
             position: absolute;
             transition: opacity 0.2s;
         }
+
+           #fade-metadata {
+        position: relative;
+        padding-bottom: 4px;
+        padding-top: 4px;
+        border: 1px solid $neutral-86;
+        border-bottom: 0;
+        &:after {
+            clear: both;
+            display: block;
+            content: '';
+        }
     }
-
-    // DUO STUFF
-
-    &.duo {
-
-    }
+    } // DUO STUFF
+    &.duo {}
 
     // SLIDER STUFF
-
     &.slider {
 
-    	#slider-heading-before, #slider-heading-after {
-    		display: inline-block;
-    	}
+        #slider-heading-before,
+        #slider-heading-after {
+            display: inline-block;
+        }
 
         #control-slider-container {
             display: none;
@@ -65,8 +70,8 @@ body {
             display: block;
             position: absolute;
             transition: opacity .25s ease-in-out;
-  -moz-transition: opacity .25s ease-in-out;
-  -webkit-transition: opacity .25s ease-in-out;
+            -moz-transition: opacity .25s ease-in-out;
+            -webkit-transition: opacity .25s ease-in-out;
 
             @include fs-textSans(2);
             font-weight: bold;
@@ -91,8 +96,6 @@ body {
                     //right: -6px;
                 }
             }
-
-           
         }
 
         #second-photo {
@@ -171,18 +174,18 @@ body {
                 display: block; //padding-right:30px;
                 border: none;
 
-                
+
 
                 &.fade-in {
-                	.noUi-handle {
-                		opacity: 1;
-                    	animation: cd-fade-in 0.9s;
+                    .noUi-handle {
+                        opacity: 1;
+                        animation: cd-fade-in 0.9s;
                     }
-               }
+                }
 
-               .noUi-base {
-                overflow: hidden;
-               }
+                .noUi-base {
+                    overflow: hidden;
+                }
 
 
 
@@ -238,30 +241,30 @@ body {
 
                         &:active {
                             cursor: col-resize;
-                        } // 	content: "";
-                        // 	display: block;
-                        // 	height:30px;
-                        // 	width:30px;
-                        // 	border-radius:15px;
-                        // 	top: 50%;
-                        // 	margin-top: -15px;
-                        // 	border:none;
-                        // 	box-shadow:0 2px 2px rgba(0,0,0,0.1);
-                        // 	left:0;
-                        // 	background-color:$highlight-yellow;
-                        // 	cursor: -webkit-grab; cursor: -moz-grab;
-                        // 	background-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        } //    content: "";
+                        //  display: block;
+                        //  height:30px;
+                        //  width:30px;
+                        //  border-radius:15px;
+                        //  top: 50%;
+                        //  margin-top: -15px;
+                        //  border:none;
+                        //  box-shadow:0 2px 2px rgba(0,0,0,0.1);
+                        //  left:0;
+                        //  background-color:$highlight-yellow;
+                        //  cursor: -webkit-grab; cursor: -moz-grab;
+                        //  background-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         // viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><g><path style="fill:#FFFFFF;" d="M20.3,10.1l0.9-0.9l5.4,5.4v0.7l-5.4,5.4l-0.9-0.9l2.9-3.8h-6.1v-2.1h6.1L20.3,10.1z M8.8,20.8
                         // l-5.4-5.4v-0.7l5.4-5.4l1,0.9l-2.9,3.8h6v2.1h-6l2.9,3.8L8.8,20.8z"/></g></svg>');
-                        // // 	background-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        // //   background-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         // // viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve"><g><path style="fill:#FFFFFF;" d="M14.7,4.4c-1.5,0-2.9,0.2-4.2,0.7C9.2,5.6,8,6.3,6.9,7.1L6.3,6.5c1-1.2,2.2-2.2,3.7-2.9
                         // // c1.5-0.7,3-1.1,4.7-1.1c1.7,0,3.3,0.4,4.7,1.1c1.5,0.7,2.7,1.7,3.7,2.9l-0.6,0.6c-1.1-0.8-2.3-1.5-3.6-2C17.6,4.6,16.2,4.4,14.7,4.4z M22.5,16.7l-1.5,9.9H13l-0.7-3.4l-5-5v-0.7l1.3-1.3l3.8,2v0l1.4-11.3H16v7.3l6.1,1.8L22.5,16.7z"/></g></svg>');
-                        // 	background-repeat: no-repeat;
+                        //  background-repeat: no-repeat;
                     } // &:active{
-                    // 	&::after {
-                    // 		cursor: -webkit-grabbing; cursor: -moz-grabbing;
-                    // 	}
-                    // 	}
+                    //  &::after {
+                    //      cursor: -webkit-grabbing; cursor: -moz-grabbing;
+                    //  }
+                    //  }
                 }
             }
         }
@@ -270,9 +273,10 @@ body {
 
     &.duo {
 
-    	#duo-heading-before, #duo-heading-after {
-    		display: block;
-    	}
+        #duo-heading-before,
+        #duo-heading-after {
+            display: block;
+        }
 
         .image-heading {
             display: block;
@@ -351,22 +355,22 @@ body {
             width: 100%;
             height: auto;
         } // &:first-of-type{
-        // 	position: absolute;
-        // 	transition:opacity 0.2s;
+        //  position: absolute;
+        //  transition:opacity 0.2s;
         // }
     }
-    #fade-metadata {
-        position: relative;
-        padding-bottom: 4px;
-        padding-top: 4px;
-        border: 1px solid $neutral-86;
-        border-bottom: 0;
-        &:after {
-            clear: both;
-            display: block;
-            content: '';
-        }
-    }
+    // #fade-metadata {
+    //     position: relative;
+    //     padding-bottom: 4px;
+    //     padding-top: 4px;
+    //     border: 1px solid $neutral-86;
+    //     border-bottom: 0;
+    //     &:after {
+    //         clear: both;
+    //         display: block;
+    //         content: '';
+    //     }
+    // }
     #control-slider-container {
         display: grid;
         grid-template-columns: 40px auto 40px;
@@ -395,10 +399,10 @@ body {
         position: relative;
     }
     #slider-before {
-      text-align: left;
+        text-align: left;
     }
     #slider-after {
-      text-align: right;
+        text-align: right;
     }
 
     #slider-1 {
@@ -423,8 +427,7 @@ body {
         width: 24px;
         border-radius: 50%;
         top: -10px;
-        border: none;
-        //box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+        border: none; //box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
         box-shadow: none;
         left: 0;
         background: $neutral-7;
@@ -463,14 +466,14 @@ body {
             margin-right: 10px;
         }
     }
-      @media(min-width:860px) {
+    @media(min-width:860px) {
         #fade-metadata {
-          left: 140px;
+            left: 140px;
         }
         #fade-metadata {
-          left: 220px;
+            left: 220px;
         }
-      }
+    }
 }
 
 //nouislider
@@ -534,6 +537,7 @@ body {
 }
 
 
+
 /* Painting and performance;
  * Browsers can paint handles in their own layer.
  */
@@ -544,6 +548,7 @@ body {
 }
 
 
+
 /* Slider size and handle placement;
  */
 
@@ -552,10 +557,10 @@ body {
 }
 
 // .noUi-horizontal .noUi-handle {
-// 	width: 34px;
-// 	height: 28px;
-// 	left: -17px;
-// 	top: -6px;
+//  width: 34px;
+//  height: 28px;
+//  left: -17px;
+//  top: -6px;
 // }
 .noUi-vertical {
     width: 18px;
@@ -567,6 +572,7 @@ body {
     left: -6px;
     top: -17px;
 }
+
 
 
 /* Styling;
@@ -599,6 +605,7 @@ body {
 }
 
 
+
 /* Handles and cursors;
  */
 
@@ -625,6 +632,7 @@ body {
     inset 0 1px 7px #DDD,
     0 3px 6px -3px #BBB;
 }
+
 
 
 /* Handle stripes;
@@ -657,6 +665,7 @@ body {
 .noUi-vertical .noUi-handle:after {
     top: 17px;
 }
+
 
 
 /* Disabled state;

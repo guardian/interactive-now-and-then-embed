@@ -37,7 +37,7 @@ window.init = function init(el, config) {
 
     iframeMessenger.getLocation(checkAndroidApp);
 
-    //buildApp( containerEl ); // Uncomment if testing locally
+    buildApp( containerEl ); // Uncomment if testing locally
 
 
     }; // end window.init;
