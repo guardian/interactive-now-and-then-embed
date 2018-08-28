@@ -28,6 +28,8 @@ body {
     //padding: 10px;
     position: relative;
 
+    
+
     // FADER STUFF
 
     &.fader {
@@ -90,13 +92,15 @@ body {
                 }
             }
 
-            &.gv-hide {
-            	display: none;
-            }
+           
         }
 
         #second-photo {
             width: 0%;
+
+            &.gv-hide {
+                display: none;
+            }
         }
 
         .view-container:nth-of-type(2) .photo-container {
@@ -166,6 +170,8 @@ body {
                 box-shadow: none;
                 display: block; //padding-right:30px;
                 border: none;
+
+                
 
                 &.fade-in {
                 	.noUi-handle {

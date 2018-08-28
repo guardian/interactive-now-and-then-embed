@@ -5,13 +5,19 @@ import detect from './detect'
 
 var firstClick = true;
 
+var properties = {};
+
 var intervalCheck;
 
 var sld;
 
-var interactiveType;
+var containerEl, interactiveType;
 
 window.init = function init(el, config) {
+
+    containerEl = el;
+
+
     iframeMessenger.enableAutoResize();
 
     el.innerHTML = embedHTML;
@@ -19,7 +25,7 @@ window.init = function init(el, config) {
     var metadata = document.location.search;
 
     //metadata = "mobile_before=//media.guim.co.uk/8a6284c68dc1bdaaa8d13f930b1d588679091f8d/0_0_4264_4301/496.jpg&desktop_before=//media.guim.co.uk/8a6284c68dc1bdaaa8d13f930b1d588679091f8d/0_0_4264_4301/991.jpg&label_before=Then&amp;mobile_after=//media.guim.co.uk/bf1ab4640975691dc677a79e89fe36757ceb2231/0_0_4264_4301/496.jpg&mobile_after=//media.guim.co.uk/bf1ab4640975691dc677a79e89fe36757ceb2231/0_0_4264_4301/991.jpg&desktop_after=//media.guim.co.uk/bf1ab4640975691dc677a79e89fe36757ceb2231/0_0_4264_4301/991.jpg&desktop_after=//media.guim.co.uk/bf1ab4640975691dc677a79e89fe36757ceb2231/0_0_4264_4301/991.jpg&label_after=Now&analytics_label=Berkley%20Square%20-%20Summer%20of%20Love%20Sliders%20-%2050%20years&";
-    var properties = {};
+    properties = {};
 
     if (metadata) {
         metadata.replace('?', '').split('&').forEach(function(property) {
@@ -29,10 +35,19 @@ window.init = function init(el, config) {
 
     interactiveType = properties["type"] || "fader";
 
+    iframeMessenger.getLocation(checkAndroidApp);
+
+    //buildApp( containerEl ); // Uncomment if testing locally
+
+
+    }; // end window.init;
+
 
     //interactiveType = "duo";
     //interactiveType = "slider";
     //interactiveType = "fader";
+
+    function buildApp( el ) {
 
 
     el.querySelector('#interactive-now-and-then-container').classList.add(interactiveType);
@@ -81,7 +96,7 @@ window.init = function init(el, config) {
             //var headingBefore = el.querySelector('#slider-heading-before');
             //var headingAfter = el.querySelector('#slider-heading-after');
             slider = el.querySelector('#slider-2');
-            start = 0;
+            start = 50;
             step = 0.00000000001;
             min = 0;
             max = 100;
@@ -122,6 +137,7 @@ window.init = function init(el, config) {
             start: [start],
             step: step,
             animate: true,
+            animationDuration: 300,
             range: {
                 'min': min,
                 'max': max
@@ -132,18 +148,25 @@ window.init = function init(el, config) {
         //var origin =el.querySelector('.noUi-origin');
         slider.noUiSlider.on('start', function() {
             secondPhoto.classList.remove("slider-transition");
+            secondPhoto.classList.remove("slider-transition-initial");
         });
         slider.noUiSlider.on('end', function(values) {
             secondPhoto.classList.add("slider-transition");
             if (interactiveType == "slider") {
                 if (values < 5) {
                     slider.noUiSlider.set(0);
+                    values=0;
                 }
 
                 if (values > 95) {
-                     slider.noUiSlider.set(100);
+                    slider.noUiSlider.set(100);
+                    values=100;
                 }
             }
+            // secondPhoto.style.width = values + "%";
+            // secondPhoto.offsetHeight;
+            // secondPhoto.classList.add("slider-transition");
+
         });
         slider.noUiSlider.on('update', function(values, handle) {
             if (typeof ga !== 'undefined') {
@@ -202,26 +225,45 @@ window.init = function init(el, config) {
 
         } // end if fader
 
+        if (interactiveType == "slider") {
+
+            var photoContainer = el.querySelector('.photos-wrapper-container');
+
+
+            photoContainer.addEventListener('click', function(e) {
+                fireAnalytics(properties);
+                //alert(e.clientX);
+                //alert(window.innerWidth);
+                //var secondPhoto = el.querySelector('#second-photo');
+       
+            //secondPhoto.classList.add("slider-transition");
+
+               
+            })
+
+             
+
+        } // end if slider
+
     }
 
-    iframeMessenger.getLocation(checkAndroidApp);
 
     intervalCheck = setInterval(fetchParentInfo, 300);
 
-    var base = el.querySelector('.noUi-base');
+    // var base = el.querySelector('.noUi-base');
 
-    base.addEventListener("mouseup", function(){
-    el.querySelector('#second-photo').classList.add("slider-transition");
-}); 
+    // base.addEventListener("mouseup", function() {
+    //     el.querySelector('#second-photo').classList.add("slider-transition");
+    // });
 
-};
+}
 
-function updateLabelVisibility( v, before, after ) {
+function updateLabelVisibility(v, before, after) {
 
-    if ( v < 20 ) {
+    if (v < 20) {
         before.style.opacity = 0;
 
-    } else if ( v > 80 ) {
+    } else if (v > 80) {
 
         after.style.opacity = 0;
 
@@ -243,14 +285,15 @@ function checkIfInView(d) {
     var threshold = 300;
 
     if (d.iframeTop < (d.innerHeight - threshold) && interactiveType == "slider") {
-    document.querySelector('#second-photo').classList.add("slider-transition-initial");
-    document.querySelector('#slider-2').classList.add("fade-in");
-    sld.updateOptions({
-        start: [50]
-    });
-    clearInterval(intervalCheck);
+        document.querySelector('#second-photo').classList.add("slider-transition-initial");
+        document.querySelector('#slider-2').classList.add("fade-in");
+        document.querySelector('#second-photo').classList.remove("gv-hide");
+        // sld.updateOptions({
+        //     start: [50]
+        // });
+        clearInterval(intervalCheck);
     }
-    //console.log(d);
+    
 }
 
 function fireAnalytics(properties) {
@@ -263,18 +306,12 @@ function fireAnalytics(properties) {
 function checkAndroidApp(locationObj) {
     //alert(locationObj.protocol);
     //console.log("protocol=" + locationObj.protocol);
-    var isAndroidApp = ( detect.isAndroid() && (locationObj.protocol === "file://" || locationObj.protocol === "file:") ) ? true : false;
+    var isAndroidApp = (detect.isAndroid() && (locationObj.protocol === "file://" || locationObj.protocol === "file:")) ? true : false;
 
-    if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
-        var sliderEl = document.querySelector('.carousel-container');
-
-        sliderEl.addEventListener("touchstart", function(){
-            window.GuardianJSInterface.registerRelatedCardsTouch(true);
-        });
-        sliderEl.addEventListener("touchend", function(){
-            window.GuardianJSInterface.registerRelatedCardsTouch(false);
-        });
+    if (isAndroidApp) {
+      interactiveType = "duo"; // Force duo mode on Android app to solve swipe problems in iframe
     }
 
+    buildApp( containerEl );
 
 }
