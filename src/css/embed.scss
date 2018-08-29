@@ -503,6 +503,16 @@ body {
             left: 230px;
         }
     }
+    @media(min-width:1140px) {
+        #fade-metadata {
+            left: 170px;
+        }
+    }
+    @media(min-width:1300px) {
+      #fade-metadata {
+          left: 250px;
+      }
+    }
 }
 
 //nouislider
