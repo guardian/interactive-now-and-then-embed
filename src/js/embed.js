@@ -291,7 +291,7 @@ function checkIfInView(d) {
         document.querySelector('#second-photo').classList.add("slider-transition-initial");
         document.querySelector('#slider-2').classList.add("fade-in");
         document.querySelector('#second-photo').classList.remove("gv-hide");
-        var origin = el.querySelector('.noUi-origin');
+        var origin = containerEl.querySelector('.noUi-origin');
         origin.classList.add("origin-smooth");
         // sld.updateOptions({
         //     start: [50]
