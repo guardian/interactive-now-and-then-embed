@@ -66,8 +66,15 @@ window.init = function init(el, config) {
 
     // Add image srcs
 
+    if (interactiveType != "slider") {
+
     el.querySelector('#first-photo img').src = properties[photoSize + "_before"];
     el.querySelector('#second-photo img').src = properties[photoSize + "_after"];
+
+    } else {
+        el.querySelector('#first-photo img').src = properties[photoSize + "_after"];
+        el.querySelector('#second-photo img').src = properties[photoSize + "_before"];
+    }
 
     var slider, start, step, min, max;
     var sliderLabelBefore, sliderLabelAfter;
