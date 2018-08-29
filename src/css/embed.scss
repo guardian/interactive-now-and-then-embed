@@ -496,11 +496,16 @@ body {
     @media(min-width:780px) {
       #fade-metadata {
           left: 150px;
-      }
+        }
     }
     @media(min-width:860px) {
         #fade-metadata {
             left: 230px;
+        }
+    }
+    @media(min-width:880px) { //immersive showcase
+        #fade-metadata {
+            left: 250px;
         }
     }
     @media(min-width:1140px) {
