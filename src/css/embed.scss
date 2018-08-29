@@ -497,6 +497,11 @@ body {
       #fade-metadata {
           left: 150px;
         }
+      &.fader {
+        #fade-metadata {
+            border-left: 4px solid $neutral-7;
+        }
+      }
     }
     @media(min-width:860px) {
         #fade-metadata {
