@@ -35,7 +35,7 @@ body {
         }
 
         .noUi-origin {
-                        
+
             &.origin-smooth {
 
                         transition: left 0.2s linear;
@@ -83,6 +83,7 @@ body {
             -webkit-transition: opacity .25s ease-in-out;
 
             @include fs-textSans(2);
+            font-size: 14px;
             font-weight: bold;
             background: $neutral-7;
             color: white;
@@ -241,6 +242,7 @@ body {
                         background-image: url("./assets/imgs/slider-arrows.svg");
                         background-repeat: no-repeat;
                         background-position: 50% 50%;
+                        background-size: 28px 12px;
                         position: absolute;
                         left: -7px;
                         top: 0;
@@ -292,6 +294,7 @@ body {
             position: absolute;
 
             @include fs-textSans(2);
+            font-size: 14px;
             font-weight: bold;
             background: $neutral-7;
             color: white;
