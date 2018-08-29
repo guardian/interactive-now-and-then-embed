@@ -200,7 +200,7 @@ btn.addEventListener('click',function(e){
 	iframe.style.border = 'none';
 	iframe.style.overflow = 'hidden';
 	iframe.height = '150'; // default height so that no-script iframes aren't super high
-	iframe.src = url;
+	iframe.src = url + "override=true";
 	iframe.seamless = 'seamless';
 	iframe.scrolling = 'no';
 
