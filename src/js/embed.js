@@ -35,7 +35,14 @@ window.init = function init(el, config) {
 
     interactiveType = properties["type"] || "fader";
 
-    iframeMessenger.getLocation(checkAndroidApp);
+    if (properties.override == undefined || properties.override == "") {
+
+        iframeMessenger.getLocation(checkAndroidApp);
+
+    } else {
+        buildApp( containerEl );
+        startWidget();
+    }
 
     // buildApp( containerEl ); // Uncomment if testing locally
 
@@ -288,17 +295,26 @@ function checkIfInView(d) {
     var threshold = 300;
 
     if (d.iframeTop < (d.innerHeight - threshold) && interactiveType == "slider") {
-        document.querySelector('#second-photo').classList.add("slider-transition-initial");
-        document.querySelector('#slider-2').classList.add("fade-in");
-        document.querySelector('#second-photo').classList.remove("gv-hide");
-        var origin = containerEl.querySelector('.noUi-origin');
-        origin.classList.add("origin-smooth");
+        // document.querySelector('#second-photo').classList.add("slider-transition-initial");
+        // document.querySelector('#slider-2').classList.add("fade-in");
+        // document.querySelector('#second-photo').classList.remove("gv-hide");
+        // var origin = containerEl.querySelector('.noUi-origin');
+        // origin.classList.add("origin-smooth");
         // sld.updateOptions({
         //     start: [50]
         // });
+        startWidget();
         clearInterval(intervalCheck);
     }
 
+}
+
+function startWidget() {
+    document.querySelector('#second-photo').classList.add("slider-transition-initial");
+    document.querySelector('#slider-2').classList.add("fade-in");
+    document.querySelector('#second-photo').classList.remove("gv-hide");
+    var origin = containerEl.querySelector('.noUi-origin');
+    origin.classList.add("origin-smooth");
 }
 
 function fireAnalytics(properties) {
