@@ -35,7 +35,7 @@ window.init = function init(el, config) {
 
     interactiveType = properties["type"] || "fader";
 
-    if (properties.override == undefined || properties.override == "") {
+    if ((properties.override == undefined || properties.override == "")  && (properties.disable_anim == undefined || properties.disable_anim == "")) {
 
         iframeMessenger.getLocation(checkAndroidApp);
 
@@ -317,10 +317,12 @@ function checkIfInView(d) {
 }
 
 function startWidget() {
-    if (properties.override == undefined || properties.override == "") {
+    if (properties.disable_anim == undefined || properties.disable_anim == "") {
     document.querySelector('#second-photo').classList.add("slider-transition-initial");
-    }
     document.querySelector('#slider-2').classList.add("fade-in");
+    } else {
+     document.querySelector('#slider-2').classList.add("no-fade-in");
+    }
     document.querySelector('#second-photo').classList.remove("gv-hide");
     var origin = containerEl.querySelector('.noUi-origin');
     origin.classList.add("origin-smooth");
