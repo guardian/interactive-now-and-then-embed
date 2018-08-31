@@ -317,7 +317,9 @@ function checkIfInView(d) {
 }
 
 function startWidget() {
+    if (properties.override == undefined || properties.override == "") {
     document.querySelector('#second-photo').classList.add("slider-transition-initial");
+    }
     document.querySelector('#slider-2').classList.add("fade-in");
     document.querySelector('#second-photo').classList.remove("gv-hide");
     var origin = containerEl.querySelector('.noUi-origin');
