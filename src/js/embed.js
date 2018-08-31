@@ -327,7 +327,8 @@ function startWidget() {
 function fireAnalytics(properties) {
     if (properties.analytics_label && firstClick) {
         firstClick = false;
-        ga("send", "event", properties.analytics_label, 'transitioned');
+        var msg = properties.analytics_label + "_" + interactiveType;
+        ga("send", "event", msg, 'transitioned');
     }
 }
 
