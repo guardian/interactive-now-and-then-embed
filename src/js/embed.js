@@ -90,8 +90,8 @@ window.init = function init(el, config) {
             headingAfter.innerHTML = decodeURIComponent(properties.label_after);
 
             if (decodeURIComponent(properties.label_before) == "" && decodeURIComponent(properties.label_after) == "") {
-                headingBefore.addClass("gv-hide");
-                headingAfter.addClass("gv-hide");
+                headingBefore.classList.add("gv-hide");
+                headingAfter.classList.add("gv-hide");
             }
 
             break;
