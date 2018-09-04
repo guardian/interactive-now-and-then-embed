@@ -293,6 +293,10 @@ body {
         #duo-heading-before,
         #duo-heading-after {
             display: block;
+
+            &.gv-hide {
+                display: none;
+            }
         }
 
         .image-heading {
