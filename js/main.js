@@ -73,6 +73,7 @@ document.addEventListener("drop", function(e) {
 		}
 	})
 
+
 	fillInputFields(smallImage,bigImage, e.target.parentElement.parentElement,assets);
   }, false);
 
