@@ -13,6 +13,33 @@ var translationTable = {
 }
 var hasDragged = false;
 
+
+// console.log("hahahaahah");
+
+// 	var testUrl = "https://media.guim.co.uk/6129a0c8bc20858944c13040c16e5b18faab6694/0_0_1800_1013/1800.jpg?width=100";
+//     const imageSignerUrl = `${imageSignerPath}?url=${testUrl}`;
+//     console.log(imageSignerUrl);
+//     fetch(imageSignerUrl, {
+//         headers: {"x-api-key": apiKey}
+//     }).then(resp => resp.json()).then(json => {
+//         //document.getElementById('signed-url').innerText = json.iguim_url;
+//         //document.getElementById('image-preview').src = json.iguim_url;
+//         console.log("Response from signer API", json);
+//         console.log("Url using resizer", json.iguim_url);
+//     });
+
+
+
+
+
+
+
+
+
+
+
+
+
 document.addEventListener("dragover", function(e) {
     e.preventDefault();
  }, false);
@@ -47,8 +74,10 @@ document.addEventListener("drop", function(e) {
 	var dataText = dt.getData("application/vnd.mediaservice.crops+json");
 	var dataObject = JSON.parse(dataText);
 	var assets = dataObject.assets;
+	console.log(dataObject);
+	//console.log(assets);
 
-	console.log(assets);
+	var masterImage = dataObject.master;
 
 	var bigDimension = null;
 	var bigImage;
@@ -74,18 +103,57 @@ document.addEventListener("drop", function(e) {
 	})
 
 
-	fillInputFields(smallImage,bigImage, e.target.parentElement.parentElement,assets);
+	fillInputFields(smallImage,bigImage, masterImage, e.target.parentElement.parentElement,assets);
   }, false);
 
-function fillInputFields(smallImage,bigImage,target,assets){
+function getCompressedImage( imgUrl, imgWidth, inputEl ) {
+
+	//var fetchUrl = "https://media.guim.co.uk/6129a0c8bc20858944c13040c16e5b18faab6694/0_0_1800_1013/1800.jpg?width=100";
+	var fetchUrl = imgUrl + "?width=" + imgWidth;
+
+	//fetchUrl = "https://media.guim.co.uk/6129a0c8bc20858944c13040c16e5b18faab6694/0_0_1800_1013/1800.jpg?width=100";
+
+	//var testUrl = "https://media.guim.co.uk/6129a0c8bc20858944c13040c16e5b18faab6694/0_0_1800_1013/1800.jpg?width=100";
+
+const imageSignerUrl = `${imageSignerPath}?url=${fetchUrl}`;
+//console.log("AGAIN", imageSignerUrl);
+
+
+
+
+
+fetch(imageSignerUrl, {
+        headers: {"x-api-key": apiKey}
+     }).then(resp => resp.json()).then(json => {
+        //document.getElementById('signed-url').innerText = json.iguim_url;
+        //document.getElementById('image-preview').src = json.iguim_url;
+        //console.log("Response from signer API", json);
+        //console.log("Url using resizer", json.iguim_url);
+
+        inputEl.value = replaceAmpersands(json.iguim_url);
+
+
+});
+
+}
+
+function replaceAmpersands( url ) {
+	var cleanUrl = url.replace(/&/g, "____");
+	cleanUrl = cleanUrl.replace("?", "----");
+	return cleanUrl;
+}
+
+function fillInputFields(smallImage,bigImage,masterImage,target,assets){
 	if(smallImage){
 		target.querySelector('.mobile_input').value = smallImage.secureUrl;
+		getCompressedImage( masterImage.secureUrl, smallImage.dimensions.width, target.querySelector('.mobile_input') );
 	}else{
 		target.querySelector('.mobile_input').value = ""
 	}
 
 	if(bigImage){
 		target.querySelector('.desktop_input').value = bigImage.secureUrl;
+		getCompressedImage( masterImage.secureUrl, bigImage.dimensions.width, target.querySelector('.desktop_input') );
 	}else{
 		target.querySelector('.desktop_input').value = "";
 	}
@@ -107,6 +175,7 @@ function fillInputFields(smallImage,bigImage,target,assets){
 				e.target.parentElement.parentElement.parentElement.querySelector('input').value = asset.secureUrl;
 				e.target.parentElement.querySelector('.selectedSize').classList.remove('selectedSize');
 				e.target.classList.add('selectedSize');
+				getCompressedImage( asset.secureUrl, asset.dimensions.width, e.target.parentElement.parentElement.parentElement.querySelector('input') );
 			})
 
 			if(smallImage && asset.dimensions.width === smallImage.dimensions.width && i === 0){
