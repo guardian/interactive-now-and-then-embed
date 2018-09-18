@@ -29,9 +29,12 @@ window.init = function init(el, config) {
 
     if (metadata) {
         metadata.replace('?', '').split('&').forEach(function(property) {
-            properties[property.split('=')[0]] = property.split('=')[1]
+            properties[property.split('=')[0]] = property.split(/=(.+)/)[1];
+            
         })
     }
+
+    //console.log(properties);
 
     interactiveType = properties["type"] || "fader";
 
@@ -54,6 +57,15 @@ window.init = function init(el, config) {
     //interactiveType = "slider";
     //interactiveType = "fader";
 
+    function reinstateChars( imgUrl ) {
+        //console.log(imgUrl);
+        var newImgUrl = imgUrl.replace("----", "?");
+        newImgUrl = newImgUrl.replace(/____/g, '&');
+        console.log(newImgUrl);
+        return newImgUrl;
+
+    }
+
     function buildApp( el ) {
 
 
@@ -63,6 +75,9 @@ window.init = function init(el, config) {
     var elWidth = el.getBoundingClientRect().width;
     var isMobile = elWidth < 480 ? true : false;
     var photoSize = isMobile ? "mobile" : "desktop";
+
+    properties[photoSize + "_before"] = reinstateChars(properties[photoSize + "_before"]);
+    properties[photoSize + "_after"] = reinstateChars(properties[photoSize + "_after"]);
 
     // Add image srcs
 
