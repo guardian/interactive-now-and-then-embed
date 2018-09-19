@@ -38,6 +38,14 @@ window.init = function init(el, config) {
 
     interactiveType = properties["type"] || "fader";
 
+    if (properties.label_before == undefined) {
+        properties.label_before = "";
+    }
+
+    if (properties.label_after == undefined) {
+        properties.label_after = "";
+    }
+
     if ((properties.override == undefined || properties.override == "")  && (properties.disable_anim == undefined || properties.disable_anim == "")) {
 
         iframeMessenger.getLocation(checkAndroidApp);
