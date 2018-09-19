@@ -175,7 +175,7 @@ function fillInputFields(smallImage,bigImage,masterImage,target,assets){
 				e.target.parentElement.parentElement.parentElement.querySelector('input').value = asset.secureUrl;
 				e.target.parentElement.querySelector('.selectedSize').classList.remove('selectedSize');
 				e.target.classList.add('selectedSize');
-				getCompressedImage( asset.secureUrl, asset.dimensions.width, e.target.parentElement.parentElement.parentElement.querySelector('input') );
+				getCompressedImage( masterImage.secureUrl, asset.dimensions.width, e.target.parentElement.parentElement.parentElement.querySelector('input') );
 			})
 
 			if(smallImage && asset.dimensions.width === smallImage.dimensions.width && i === 0){
