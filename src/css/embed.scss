@@ -16,13 +16,29 @@ body {
     margin: 0;
 }
 
-
 #slider-heading-before,
 #slider-heading-after,
 #duo-heading-before,
 #duo-heading-after {
     display: none;
 }
+
+.photo-container {
+     position: relative;
+
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+// object {
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+// }
+
 
 
 
@@ -109,7 +125,8 @@ body {
         }
 
         #second-photo {
-            width: 0%;
+            width: 100%;
+            clip-path: inset(0 0 0 50%);
 
             &.gv-hide {
                 display: none;
@@ -118,7 +135,7 @@ body {
 
         .view-container:nth-of-type(2) .photo-container {
             position: absolute;
-            overflow: hidden;
+            //overflow: hidden;
             height: 100%;
             border-right: 1px solid #fff;
 

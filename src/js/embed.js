@@ -2,10 +2,14 @@ import iframeMessenger from 'guardian/iframe-messenger'
 import embedHTML from './text/embed.html!text'
 import noUiSlider from 'nouislider'
 import detect from './detect'
+import reqwest from 'reqwest'
+
 
 var firstClick = true;
 
 var properties = {};
+
+var assetPath;
 
 var intervalCheck;
 
@@ -16,6 +20,8 @@ var containerEl, interactiveType;
 window.init = function init(el, config) {
 
     containerEl = el;
+
+    assetPath = config.assetPath;
 
 
     iframeMessenger.enableAutoResize();
@@ -37,6 +43,8 @@ window.init = function init(el, config) {
     //console.log(properties);
 
     interactiveType = properties["type"] || "fader";
+
+    alert(properties["use_html"]);
 
     if (properties.label_before == undefined) {
         properties.label_before = "";
@@ -91,13 +99,53 @@ window.init = function init(el, config) {
 
     if (interactiveType != "slider") {
 
-    el.querySelector('#first-photo img').src = properties[photoSize + "_before"];
-    el.querySelector('#second-photo img').src = properties[photoSize + "_after"];
+    //el.querySelector('#first-photo img').src = properties[photoSize + "_before"];
+    //el.querySelector('#second-photo img').src = properties[photoSize + "_after"];
+
 
     } else {
-        el.querySelector('#first-photo img').src = properties[photoSize + "_after"];
-        el.querySelector('#second-photo img').src = properties[photoSize + "_before"];
+        //el.querySelector('#first-photo img').src = properties[photoSize + "_after"];
+        //el.querySelector('#second-photo img').src = properties[photoSize + "_before"];
+        //el.querySelector('#first-photo').innerHTML='<object type="text/html" data="https://interactive.guim.co.uk/embed/testing/test-divs-for-then-now/a_path/index.html" ></object>';
+        //el.querySelector('#second-photo').innerHTML='<object type="text/html" data="https://interactive.guim.co.uk/embed/testing/test-divs-for-then-now/b_path/index.html" ></object>';
+       reqwest({
+        url: 'https://interactive.guim.co.uk/embed/testing/test-divs-for-then-now/a_path/index.html',
+        type: 'text',
+        crossOrigin: true,
+        success: (resp) => el.querySelector('#first-photo').innerHTML = replaceImages(resp.response, "a_path") //`Your IP address is ${resp.ip}`
+        });
+       reqwest({
+        url: 'https://interactive.guim.co.uk/embed/testing/test-divs-for-then-now/b_path/index.html',
+        type: 'text',
+        crossOrigin: true,
+        success: (resp) => el.querySelector('#second-photo').innerHTML = replaceImages(resp.response, "b_path")//el.querySelector('#second-photo').innerHTML = resp.response //`Your IP address is ${resp.ip}`
+        });
+
+
+       // Add code to replace all img srcs with 
+
+
+         //el.querySelector('#first-photo').innerHTML = await fetchHtmlAsText("https://interactive.guim.co.uk/embed/testing/test-divs-for-then-now/a_path/index.html");
     }
+
+    function replaceImages ( resp, path ) {
+        
+        var newResp = resp.replaceAll('background-image:url(', 'background-image:url(https://interactive.guim.co.uk/embed/testing/test-divs-for-then-now/' + path + "/");
+            console.log(newResp);
+        
+        return newResp;
+    }
+
+
+
+    String.prototype.replaceAll = function(searchStr, replaceStr) {
+    var str = this;
+    
+    // escape regexp special characters in search string
+    searchStr = searchStr.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    
+    return str.replace(new RegExp(searchStr, 'gi'), replaceStr);
+};
 
     var slider, start, step, min, max;
     var sliderLabelBefore, sliderLabelAfter;
@@ -226,7 +274,8 @@ window.init = function init(el, config) {
 
                 //console.log(origin.style.left);
                 //origin =el.querySelector('.noUi-origin');
-                secondPhoto.style.width = values + "%";
+                //secondPhoto.style.width = values + "%";
+                secondPhoto.style.clipPath = "inset(0 0 0 " + values + "%)";
                 //secondPhoto.style.width = origin.style.left;
                 updateLabelVisibility(values, sliderLabelBefore, sliderLabelAfter);
             }
