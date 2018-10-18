@@ -218,8 +218,9 @@ editBtn.addEventListener('click',function(e){
 btn.addEventListener('click',function(e){
 	var formData = $('form').serializeArray();
 	var values = {};
-	var base = window.location.hostname.indexOf("localhost") > -1 ? "http://localhost:8000/embed.html?" : "https://interactive.guim.co.uk/2018/08/interactive-now-and-then-embed/embed/embed.html?";
-	var base = "https://interactive.guim.co.uk/2018/08/interactive-now-and-then-embed/embed/embed.html?";
+	//var base = window.location.hostname.indexOf("localhost") > -1 ? "http://localhost:8000/embed.html?" : "https://interactive.guim.co.uk/2018/08/interactive-now-and-then-embed/embed/embed.html?";
+	//var base = "https://interactive.guim.co.uk/2018/08/interactive-now-and-then-embed/embed/embed.html?"; // PRODUCTION
+	var base = "https://interactive.guim.co.uk/2018/08/interactive-now-and-then-embed-test-only/embed/embed.html?"; // TEST
 	var url = base;
 	errors = [];
 
