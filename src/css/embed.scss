@@ -137,10 +137,11 @@ body {
             position: absolute;
             //overflow: hidden;
             height: 100%;
-            border-right: 1px solid #fff;
+            //border-right: 10px solid #fff;
 
             &.slider-transition {
-                transition: width 0.3s;
+                //transition: width 0.3s;
+                transition: clip-path 0.3s;
             }
 
             &.slider-transition-initial {
@@ -156,13 +157,16 @@ body {
 
         @keyframes cd-bounce-in {
             0% {
-                width: 0;
+                //width: 0;
+                clip-path: inset(0 0 0 0);
             }
             60% {
-                width: 55%;
+                //width: 55%;
+                clip-path: inset(0 0 0 55%);
             }
             100% {
-                width: 50%;
+                //width: 50%;
+                clip-path: inset(0 0 0 50%);
             }
         }
 
@@ -229,6 +233,16 @@ body {
                     background: transparent;
                     margin-left: -15px; //top: 50%;
                     opacity: 0;
+
+                    &:before {
+                        position: absolute;
+                        display:block;
+                        content: "";
+                        border-left: 1px solid #fff;
+                        height: 100%;
+                        top: 0;
+                    }
+                    top: 0;
 
 
 
@@ -310,6 +324,7 @@ body {
         #duo-heading-before,
         #duo-heading-after {
             display: block;
+            z-index: 999;
 
             &.gv-hide {
                 display: none;
