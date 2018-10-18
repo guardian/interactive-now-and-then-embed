@@ -127,6 +127,7 @@ body {
         #second-photo {
             width: 100%;
             clip-path: inset(0 0 0 50%);
+            -webkit-clip-path: inset(0 0 0 50%);
 
             &.gv-hide {
                 display: none;
@@ -142,6 +143,7 @@ body {
             &.slider-transition {
                 //transition: width 0.3s;
                 transition: clip-path 0.3s;
+                transition: -webkit-clip-path 0.3s;
             }
 
             &.slider-transition-initial {
@@ -159,14 +161,17 @@ body {
             0% {
                 //width: 0;
                 clip-path: inset(0 0 0 0);
+                -webkit-clip-path: inset(0 0 0 0);
             }
             60% {
                 //width: 55%;
                 clip-path: inset(0 0 0 55%);
+                -webkit-clip-path: inset(0 0 0 55%);
             }
             100% {
                 //width: 50%;
                 clip-path: inset(0 0 0 50%);
+                -webkit-clip-path: inset(0 0 0 50%);
             }
         }
 

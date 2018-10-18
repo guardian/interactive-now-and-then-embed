@@ -309,6 +309,7 @@ window.init = function init(el, config) {
                 //origin =el.querySelector('.noUi-origin');
                 //secondPhoto.style.width = values + "%";
                 secondPhoto.style.clipPath = "inset(0 0 0 " + values + "%)";
+                secondPhoto.style["-webkit-clip-path"] = "inset(0 0 0 " + values + "%)";
                 //secondPhoto.style.width = origin.style.left;
                 updateLabelVisibility(values, sliderLabelBefore, sliderLabelAfter);
             }
