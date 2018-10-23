@@ -13,6 +13,8 @@ var assetPath;
 
 var intervalCheck;
 
+var maxWidthsUpdated = false;
+
 var sld;
 
 var containerEl, interactiveType, loadHtmlImagery = false;
@@ -119,13 +121,13 @@ window.init = function init(el, config) {
         url:  properties["mobile_before"] + 'index.html',
         type: 'text',
         crossOrigin: true,
-        success: (resp) => el.querySelector('#first-photo').innerHTML = replaceImages(resp.response, properties["mobile_before"]) //`Your IP address is ${resp.ip}`
+        success: (resp) => { el.querySelector('#first-photo').innerHTML = replaceImages(resp.response, properties["mobile_before"]); updateMaxWidths ( el.querySelector('#first-photo') ); } //`Your IP address is ${resp.ip}`
         });
        reqwest({
         url: properties["mobile_after"] + 'index.html',
         type: 'text',
         crossOrigin: true,
-        success: (resp) => el.querySelector('#second-photo').innerHTML = replaceImages(resp.response, properties["mobile_after"])//el.querySelector('#second-photo').innerHTML = resp.response //`Your IP address is ${resp.ip}`
+        success: (resp) => { el.querySelector('#second-photo').innerHTML = replaceImages(resp.response, properties["mobile_after"]); updateMaxWidths ( el.querySelector('#second-photo') ); }//el.querySelector('#second-photo').innerHTML = resp.response //`Your IP address is ${resp.ip}`
         });
 
         }
@@ -144,13 +146,13 @@ window.init = function init(el, config) {
         url:  properties["mobile_after"] + 'index.html',
         type: 'text',
         crossOrigin: true,
-        success: (resp) => el.querySelector('#first-photo').innerHTML = replaceImages(resp.response, properties["mobile_after"]) //`Your IP address is ${resp.ip}`
+        success: (resp) => { el.querySelector('#first-photo').innerHTML = replaceImages(resp.response, properties["mobile_after"]); updateMaxWidths ( el.querySelector('#first-photo') ); } //`Your IP address is ${resp.ip}`
         });
        reqwest({
         url: properties["mobile_before"] + 'index.html',
         type: 'text',
         crossOrigin: true,
-        success: (resp) => el.querySelector('#second-photo').innerHTML = replaceImages(resp.response, properties["mobile_before"])//el.querySelector('#second-photo').innerHTML = resp.response //`Your IP address is ${resp.ip}`
+        success: (resp) => { el.querySelector('#second-photo').innerHTML = replaceImages(resp.response, properties["mobile_before"]); updateMaxWidths ( el.querySelector('#second-photo') ); }//el.querySelector('#second-photo').innerHTML = resp.response //`Your IP address is ${resp.ip}`
         });
 
    }
@@ -165,9 +167,49 @@ window.init = function init(el, config) {
     function replaceImages ( resp, path ) {
         
         var newResp = resp.replaceAll('background-image:url(', 'background-image:url(' + path);
-            console.log(newResp);
+            //console.log(newResp);
         
         return newResp;
+    }
+
+    function updateMaxWidths(elem) {
+
+    if (!maxWidthsUpdated) {
+
+        var i, minWidths = [],
+            css = "",
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+
+        [].slice.apply(elem.querySelectorAll('.gu-artboard')).forEach(ab => {
+
+            minWidths.push(getDatasetProperty(ab.dataset, "min-width"));
+
+        });
+
+        for (i = 1; i < minWidths.length; i++) {
+            css += "@media  screen and (min-width: " + minWidths[i] + "px) { .interactive-embed {max-width:" + minWidths[i] + "px;}"
+        }
+
+
+        style.type = 'text/css';
+        if (style.styleSheet) {
+            // This is required for IE8 and below.
+            style.styleSheet.cssText = css;
+        } else {
+            style.appendChild(document.createTextNode(css));
+        }
+
+        head.appendChild(style);
+
+        maxWidthsUpdated = true;
+
+    }
+
+}
+
+    function getDatasetProperty(dataset, propName) {
+    return typeof Reflect !== 'undefined' ? Reflect.get(dataset, propName) : dataset[ propName ]
     }
 
 
