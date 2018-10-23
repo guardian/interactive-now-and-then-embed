@@ -98,6 +98,7 @@ window.init = function init(el, config) {
     if (lastChar == "/") {
         loadHtmlImagery = true;
         photoSize = "mobile";
+        el.querySelector('#interactive-now-and-then-container').classList.add("use-html-imagery");
     }
 
     properties[photoSize + "_before"] = reinstateChars(properties[photoSize + "_before"]);

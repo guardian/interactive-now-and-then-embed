@@ -375,6 +375,33 @@ body {
             display: none;
         }
 
+        &.use-html-imagery {
+            // @media(min-width:620px) {
+            // .gu-artboard[data-min-width="620"] {
+            //     display: block !important;
+
+            //     & + .gu-artboard {
+            //         display: none !important;
+            //     }
+            // }
+            // }
+
+            .gu-artboard {
+                display: none !important;
+
+                &:first-of-type {
+                    display: block !important;
+                }
+
+            }
+
+            .view-container {
+                //max-width: 620px;
+            }
+        }
+
+        //&:not(.use-html-imagery) {
+
         @media(min-width:575px) {
 
             .view-container {
@@ -397,6 +424,8 @@ body {
                 }
             }
         }
+
+    //}
     }
 
     .photos-wrapper-container {
