@@ -183,9 +183,11 @@ window.init = function init(el, config) {
 
         [].slice.apply(elem.querySelectorAll('.gu-artboard')).forEach(ab => {
 
-            minWidths.push(getDatasetProperty(ab.dataset, "min-width"));
+            minWidths.push(getDatasetProperty(ab.dataset, "minWidth"));
 
         });
+
+
 
         for (i = 1; i < minWidths.length; i++) {
             css += "@media  screen and (min-width: " + minWidths[i] + "px) { .interactive-embed {max-width:" + minWidths[i] + "px;}"
