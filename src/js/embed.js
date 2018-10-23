@@ -114,17 +114,17 @@ window.init = function init(el, config) {
 
         } else {
 
-    reqwest({
-        url: 'https://interactive.guim.co.uk/embed/testing/test-divs-for-then-now/b_path/index.html',
+   reqwest({
+        url:  properties["mobile_before"] + 'index.html',
         type: 'text',
         crossOrigin: true,
-        success: (resp) => el.querySelector('#first-photo').innerHTML = replaceImages(resp.response, "b_path") //`Your IP address is ${resp.ip}`
+        success: (resp) => el.querySelector('#first-photo').innerHTML = replaceImages(resp.response, properties["mobile_before"]) //`Your IP address is ${resp.ip}`
         });
        reqwest({
-        url: 'https://interactive.guim.co.uk/embed/testing/test-divs-for-then-now/a_path/index.html',
+        url: properties["mobile_after"] + 'index.html',
         type: 'text',
         crossOrigin: true,
-        success: (resp) => el.querySelector('#second-photo').innerHTML = replaceImages(resp.response, "a_path")//el.querySelector('#second-photo').innerHTML = resp.response //`Your IP address is ${resp.ip}`
+        success: (resp) => el.querySelector('#second-photo').innerHTML = replaceImages(resp.response, properties["mobile_after"])//el.querySelector('#second-photo').innerHTML = resp.response //`Your IP address is ${resp.ip}`
         });
 
         }
@@ -140,16 +140,16 @@ window.init = function init(el, config) {
     } else {
         
        reqwest({
-        url: 'https://interactive.guim.co.uk/embed/testing/test-divs-for-then-now/a_path/index.html',
+        url:  properties["mobile_after"] + 'index.html',
         type: 'text',
         crossOrigin: true,
-        success: (resp) => el.querySelector('#first-photo').innerHTML = replaceImages(resp.response, "a_path") //`Your IP address is ${resp.ip}`
+        success: (resp) => el.querySelector('#first-photo').innerHTML = replaceImages(resp.response, properties["mobile_after"]) //`Your IP address is ${resp.ip}`
         });
        reqwest({
-        url: 'https://interactive.guim.co.uk/embed/testing/test-divs-for-then-now/b_path/index.html',
+        url: properties["mobile_before"] + 'index.html',
         type: 'text',
         crossOrigin: true,
-        success: (resp) => el.querySelector('#second-photo').innerHTML = replaceImages(resp.response, "b_path")//el.querySelector('#second-photo').innerHTML = resp.response //`Your IP address is ${resp.ip}`
+        success: (resp) => el.querySelector('#second-photo').innerHTML = replaceImages(resp.response, properties["mobile_before"])//el.querySelector('#second-photo').innerHTML = resp.response //`Your IP address is ${resp.ip}`
         });
 
    }
@@ -163,7 +163,7 @@ window.init = function init(el, config) {
 
     function replaceImages ( resp, path ) {
         
-        var newResp = resp.replaceAll('background-image:url(', 'background-image:url(https://interactive.guim.co.uk/embed/testing/test-divs-for-then-now/' + path + "/");
+        var newResp = resp.replaceAll('background-image:url(', 'background-image:url(' + path);
             console.log(newResp);
         
         return newResp;
