@@ -108,7 +108,7 @@ window.init = function init(el, config) {
 
     // Add image srcs
 
-    if (interactiveType != "slider") {
+    // if (interactiveType != "slider") {
 
         if (!loadHtmlImagery) {
 
@@ -133,36 +133,36 @@ window.init = function init(el, config) {
         }
 
 
-    } else {
+   //  } else {
 
-        if (!loadHtmlImagery) {
+   //      if (!loadHtmlImagery) {
 
-        el.querySelector('#first-photo img').src = properties[photoSize + "_after"];
-        el.querySelector('#second-photo img').src = properties[photoSize + "_before"];
+   //      el.querySelector('#first-photo img').src = properties[photoSize + "_before"];
+   //      el.querySelector('#second-photo img').src = properties[photoSize + "_after"];
 
-    } else {
+   //  } else {
         
-       reqwest({
-        url:  properties["mobile_after"] + 'index.html',
-        type: 'text',
-        crossOrigin: true,
-        success: (resp) => { el.querySelector('#first-photo').innerHTML = replaceImages(resp.response, properties["mobile_after"]); updateMaxWidths ( el.querySelector('#first-photo') ); } //`Your IP address is ${resp.ip}`
-        });
-       reqwest({
-        url: properties["mobile_before"] + 'index.html',
-        type: 'text',
-        crossOrigin: true,
-        success: (resp) => { el.querySelector('#second-photo').innerHTML = replaceImages(resp.response, properties["mobile_before"]); updateMaxWidths ( el.querySelector('#second-photo') ); }//el.querySelector('#second-photo').innerHTML = resp.response //`Your IP address is ${resp.ip}`
-        });
+   //      reqwest({
+   //      url:  properties["mobile_before"] + 'index.html',
+   //      type: 'text',
+   //      crossOrigin: true,
+   //      success: (resp) => { el.querySelector('#first-photo').innerHTML = replaceImages(resp.response, properties["mobile_before"]); updateMaxWidths ( el.querySelector('#first-photo') ); } //`Your IP address is ${resp.ip}`
+   //      });
+   //     reqwest({
+   //      url: properties["mobile_after"] + 'index.html',
+   //      type: 'text',
+   //      crossOrigin: true,
+   //      success: (resp) => { el.querySelector('#second-photo').innerHTML = replaceImages(resp.response, properties["mobile_after"]); updateMaxWidths ( el.querySelector('#second-photo') ); }//el.querySelector('#second-photo').innerHTML = resp.response //`Your IP address is ${resp.ip}`
+   //      });
 
-   }
+   // }
 
 
        // Add code to replace all img srcs with 
 
 
          //el.querySelector('#first-photo').innerHTML = await fetchHtmlAsText("https://interactive.guim.co.uk/embed/testing/test-divs-for-then-now/a_path/index.html");
-    }
+    //}
 
     function replaceImages ( resp, path ) {
         
@@ -227,21 +227,17 @@ window.init = function init(el, config) {
 
     var slider, start, step, min, max;
     var sliderLabelBefore, sliderLabelAfter;
+    var headingBefore, headingAfter;
 
 
     switch (interactiveType) {
 
         case "duo":
 
-            var headingBefore = el.querySelector('#duo-heading-before');
-            var headingAfter = el.querySelector('#duo-heading-after');
+            headingBefore = el.querySelector('#duo-heading-before');
+            headingAfter = el.querySelector('#duo-heading-after');
             headingBefore.innerHTML = decodeURIComponent(properties.label_before);
             headingAfter.innerHTML = decodeURIComponent(properties.label_after);
-
-            if (decodeURIComponent(properties.label_before) == "" && decodeURIComponent(properties.label_after) == "") {
-                headingBefore.classList.add("gv-hide");
-                headingAfter.classList.add("gv-hide");
-            }
 
             break;
 
@@ -255,6 +251,9 @@ window.init = function init(el, config) {
             max = 1;
             sliderLabelBefore = el.querySelector('#slider-before');
             sliderLabelAfter = el.querySelector('#slider-after');
+            headingBefore = sliderLabelBefore;
+            headingAfter = sliderLabelAfter;
+
 
             break;
 
@@ -270,10 +269,22 @@ window.init = function init(el, config) {
             max = 100;
             sliderLabelBefore = el.querySelector('#slider-heading-before');
             sliderLabelAfter = el.querySelector('#slider-heading-after');
+            headingBefore = sliderLabelBefore;
+            headingAfter = sliderLabelAfter;
+
+            // var temp = properties.label_before;
+            // properties.label_before = properties.label_after;
+            // properties.label_after = temp;
 
             break;
 
     }
+
+
+      if (decodeURIComponent(properties.label_before) == "" && decodeURIComponent(properties.label_after) == "") {
+                headingBefore.classList.add("gv-hide");
+                headingAfter.classList.add("gv-hide");
+        }
 
 
     // Add interactivity if not "Duo"

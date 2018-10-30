@@ -39,7 +39,9 @@ body {
 //     height: 100%;
 // }
 
-
+.gv-hide {
+    display: none!important;
+}
 
 
 .interactive-now-and-then-container {
@@ -144,6 +146,8 @@ body {
                 //transition: width 0.3s;
                 transition: clip-path 0.3s;
                 transition: -webkit-clip-path 0.3s;
+                -webkit-transition: -webkit-clip-path 0.3s;
+                -webkit-transition: clip-path 0.3s;
             }
 
             &.slider-transition-initial {
