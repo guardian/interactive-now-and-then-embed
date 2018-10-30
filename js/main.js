@@ -199,20 +199,34 @@ editBtn.addEventListener('click',function(e){
 		return false
 	}
 
-	var dataValues = data.split('&');
-	dataValues.forEach(function(d,i){
-		if(i===0){
-			d = d.replace('?','')
-		}
+	//console.log(data);
 
-		var dSplit = d.split('=');
-		if(dSplit[0]){
-			var el = document.querySelector('input[name=' + dSplit[0] + ']')
-			if(el){
-				el.value = dSplit[1];
+	data.replace('?', '').split('&').forEach(function(property) {
+		//console.log(property);
+            //properties[property.split('=')[0]] = property.split(/=(.+)/)[1];
+            var el = document.querySelector('input[name=' + property.split('=')[0] + ']');
+            //console.log('input[name=' + property.split('=')[0] + ']');
+            if(el){
+				el.value = property.split(/=(.+)/)[1];
 			}
-		}
-	})
+   
+        })
+   
+
+	// var dataValues = data.split('&');
+	// dataValues.forEach(function(d,i){
+	// 	if(i===0){
+	// 		d = d.replace('?','')
+	// 	}
+
+	// 	var dSplit = d.split('=');
+	// 	if(dSplit[0]){
+	// 		var el = document.querySelector('input[name=' + dSplit[0] + ']')
+	// 		if(el){
+	// 			el.value = dSplit[1];
+	// 		}
+	// 	}
+	// })
 })
 
 btn.addEventListener('click',function(e){
@@ -220,7 +234,7 @@ btn.addEventListener('click',function(e){
 	var values = {};
 	//var base = window.location.hostname.indexOf("localhost") > -1 ? "http://localhost:8000/embed.html?" : "https://interactive.guim.co.uk/2018/08/interactive-now-and-then-embed/embed/embed.html?";
 	//var base = "https://interactive.guim.co.uk/2018/08/interactive-now-and-then-embed/embed/embed.html?"; // PRODUCTION
-	var base = "https://interactive.guim.co.uk/2018/08/interactive-now-and-then-embed-test-only/embed/embed.html?"; // TEST
+	var base = "https://interactive.guim.co.uk/2018/08/interactive-now-and-then-embed/embed/embed.html?"; // TEST
 	var url = base;
 	errors = [];
 
