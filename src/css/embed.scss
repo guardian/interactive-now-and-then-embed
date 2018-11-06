@@ -79,7 +79,14 @@ body {
         }
     }
     } // DUO STUFF
-    &.duo {}
+    &.duo {
+        #second-photo {
+        &.gv-hide {
+    display: block!important;
+        }
+    }
+
+    }
 
     // SLIDER STUFF
     &.slider {
