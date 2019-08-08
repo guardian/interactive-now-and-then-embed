@@ -378,7 +378,9 @@ window.init = function init(el, config) {
             var fadeTimeout;
 
             photoContainer.addEventListener('click', function() {
+                if (typeof ga !== 'undefined') {
                 fireAnalytics(properties);
+                }
 
 
                 clearTimeout(fadeTimeout);
@@ -513,5 +515,6 @@ function checkAndroidApp(locationObj) {
     }
 
     buildApp( containerEl );
+    document.querySelector('#second-photo').classList.remove("gv-hide");
 
 }
