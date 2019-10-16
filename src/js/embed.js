@@ -36,9 +36,9 @@ window.init = function init(el, config) {
     properties = {};
 
     if (metadata) {
-        metadata.replace('?', '').split('&').forEach(function(property) {
+        metadata.replace('?', '').split('&').forEach(function (property) {
             properties[property.split('=')[0]] = property.split(/=(.+)/)[1];
-            
+
         })
     }
 
@@ -56,35 +56,61 @@ window.init = function init(el, config) {
         properties.label_after = "";
     }
 
-    if ((properties.override == undefined || properties.override == "")  && (properties.disable_anim == undefined || properties.disable_anim == "")) {
+    if ((properties.override == undefined || properties.override == "") && (properties.disable_anim == undefined || properties.disable_anim == "")) {
 
         iframeMessenger.getLocation(checkAndroidApp);
 
     } else {
-        buildApp( containerEl );
+        buildApp(containerEl);
         startWidget();
     }
 
     // buildApp( containerEl ); // Uncomment if testing locally
 
+    if (interactiveType == "slider") {
 
-    }; // end window.init;
+    var secondImgContent = el.querySelector('#second-photo').firstElementChild;
 
-
-    //interactiveType = "duo";
-    //interactiveType = "slider";
-    //interactiveType = "fader";
-
-    function reinstateChars( imgUrl ) {
-        //console.log(imgUrl);
-        var newImgUrl = imgUrl.replace("----", "?");
-        newImgUrl = newImgUrl.replace(/____/g, '&');
-        //console.log(newImgUrl);
-        return newImgUrl;
+    secondImgContent.style.width = containerEl.clientWidth + "px";
 
     }
 
-    function buildApp( el ) {
+
+    //secondImgContent.style.width = containerEl.style.width;
+
+    window.addEventListener('resize', function() {
+
+        if (interactiveType == "slider") {
+
+    //         secondImgContent = el.querySelector('#second-photo').firstChild;
+
+    // console.log(secondImgContent);
+
+            secondImgContent.style.width = containerEl.clientWidth + "px";
+           
+
+        }
+       
+    }, true);
+
+
+}; // end window.init;
+
+
+//interactiveType = "duo";
+//interactiveType = "slider";
+//interactiveType = "fader";
+
+function reinstateChars(imgUrl) {
+    //console.log(imgUrl);
+    var newImgUrl = imgUrl.replace("----", "?");
+    newImgUrl = newImgUrl.replace(/____/g, '&');
+    //console.log(newImgUrl);
+    return newImgUrl;
+
+}
+
+function buildApp(el) {
 
 
     el.querySelector('#interactive-now-and-then-container').classList.add(interactiveType);
@@ -110,120 +136,127 @@ window.init = function init(el, config) {
 
     // if (interactiveType != "slider") {
 
-        if (!loadHtmlImagery) {
+    if (!loadHtmlImagery) {
 
-    el.querySelector('#first-photo img').src = properties[photoSize + "_before"];
-    el.querySelector('#second-photo img').src = properties[photoSize + "_after"];
+        if (interactiveType != "slider") {
+
+            el.querySelector('#first-photo img').src = properties[photoSize + "_before"];
+            el.querySelector('#second-photo img').src = properties[photoSize + "_after"];
 
         } else {
-
-   reqwest({
-        url:  properties["mobile_before"] + 'index.html',
-        type: 'text',
-        crossOrigin: true,
-        success: (resp) => { el.querySelector('#first-photo').innerHTML = replaceImages(resp.response, properties["mobile_before"]); updateMaxWidths ( el.querySelector('#first-photo') ); } //`Your IP address is ${resp.ip}`
-        });
-       reqwest({
-        url: properties["mobile_after"] + 'index.html',
-        type: 'text',
-        crossOrigin: true,
-        success: (resp) => { el.querySelector('#second-photo').innerHTML = replaceImages(resp.response, properties["mobile_after"]); updateMaxWidths ( el.querySelector('#second-photo') ); }//el.querySelector('#second-photo').innerHTML = resp.response //`Your IP address is ${resp.ip}`
-        });
-
+            el.querySelector('#first-photo img').src = properties[photoSize + "_after"];
+            el.querySelector('#second-photo img').src = properties[photoSize + "_before"];
         }
 
+    } else {
 
-   //  } else {
+        reqwest({
+            url: properties["mobile_before"] + 'index.html',
+            type: 'text',
+            crossOrigin: true,
+            success: (resp) => { el.querySelector('#first-photo').innerHTML = replaceImages(resp.response, properties["mobile_before"]); updateMaxWidths(el.querySelector('#first-photo')); } //`Your IP address is ${resp.ip}`
+        });
+        reqwest({
+            url: properties["mobile_after"] + 'index.html',
+            type: 'text',
+            crossOrigin: true,
+            success: (resp) => { el.querySelector('#second-photo').innerHTML = replaceImages(resp.response, properties["mobile_after"]); updateMaxWidths(el.querySelector('#second-photo')); }//el.querySelector('#second-photo').innerHTML = resp.response //`Your IP address is ${resp.ip}`
+        });
 
-   //      if (!loadHtmlImagery) {
-
-   //      el.querySelector('#first-photo img').src = properties[photoSize + "_before"];
-   //      el.querySelector('#second-photo img').src = properties[photoSize + "_after"];
-
-   //  } else {
-        
-   //      reqwest({
-   //      url:  properties["mobile_before"] + 'index.html',
-   //      type: 'text',
-   //      crossOrigin: true,
-   //      success: (resp) => { el.querySelector('#first-photo').innerHTML = replaceImages(resp.response, properties["mobile_before"]); updateMaxWidths ( el.querySelector('#first-photo') ); } //`Your IP address is ${resp.ip}`
-   //      });
-   //     reqwest({
-   //      url: properties["mobile_after"] + 'index.html',
-   //      type: 'text',
-   //      crossOrigin: true,
-   //      success: (resp) => { el.querySelector('#second-photo').innerHTML = replaceImages(resp.response, properties["mobile_after"]); updateMaxWidths ( el.querySelector('#second-photo') ); }//el.querySelector('#second-photo').innerHTML = resp.response //`Your IP address is ${resp.ip}`
-   //      });
-
-   // }
+    }
 
 
-       // Add code to replace all img srcs with 
+    //  } else {
+
+    //      if (!loadHtmlImagery) {
+
+    //      el.querySelector('#first-photo img').src = properties[photoSize + "_before"];
+    //      el.querySelector('#second-photo img').src = properties[photoSize + "_after"];
+
+    //  } else {
+
+    //      reqwest({
+    //      url:  properties["mobile_before"] + 'index.html',
+    //      type: 'text',
+    //      crossOrigin: true,
+    //      success: (resp) => { el.querySelector('#first-photo').innerHTML = replaceImages(resp.response, properties["mobile_before"]); updateMaxWidths ( el.querySelector('#first-photo') ); } //`Your IP address is ${resp.ip}`
+    //      });
+    //     reqwest({
+    //      url: properties["mobile_after"] + 'index.html',
+    //      type: 'text',
+    //      crossOrigin: true,
+    //      success: (resp) => { el.querySelector('#second-photo').innerHTML = replaceImages(resp.response, properties["mobile_after"]); updateMaxWidths ( el.querySelector('#second-photo') ); }//el.querySelector('#second-photo').innerHTML = resp.response //`Your IP address is ${resp.ip}`
+    //      });
+
+    // }
 
 
-         //el.querySelector('#first-photo').innerHTML = await fetchHtmlAsText("https://interactive.guim.co.uk/embed/testing/test-divs-for-then-now/a_path/index.html");
+    // Add code to replace all img srcs with 
+
+
+    //el.querySelector('#first-photo').innerHTML = await fetchHtmlAsText("https://interactive.guim.co.uk/embed/testing/test-divs-for-then-now/a_path/index.html");
     //}
 
-    function replaceImages ( resp, path ) {
-        
+    function replaceImages(resp, path) {
+
         var newResp = resp.replaceAll('background-image:url(', 'background-image:url(' + path);
-            //console.log(newResp);
-        
+        //console.log(newResp);
+
         return newResp;
     }
 
     function updateMaxWidths(elem) {
 
-    if (!maxWidthsUpdated) {
+        if (!maxWidthsUpdated) {
 
-        var i, minWidths = [],
-            css = "",
-            head = document.head || document.getElementsByTagName('head')[0],
-            style = document.createElement('style');
+            var i, minWidths = [],
+                css = "",
+                head = document.head || document.getElementsByTagName('head')[0],
+                style = document.createElement('style');
 
-        [].slice.apply(elem.querySelectorAll('.gu-artboard')).forEach(ab => {
+            [].slice.apply(elem.querySelectorAll('.gu-artboard')).forEach(ab => {
 
-            minWidths.push(getDatasetProperty(ab.dataset, "minWidth"));
+                minWidths.push(getDatasetProperty(ab.dataset, "minWidth"));
 
-        });
+            });
 
 
 
-        for (i = 1; i < minWidths.length; i++) {
-            css += "@media  screen and (min-width: " + minWidths[i] + "px) { .interactive-embed {max-width:" + minWidths[i] + "px;}"
+            for (i = 1; i < minWidths.length; i++) {
+                css += "@media  screen and (min-width: " + minWidths[i] + "px) { .interactive-embed {max-width:" + minWidths[i] + "px;}"
+            }
+
+
+            style.type = 'text/css';
+            if (style.styleSheet) {
+                // This is required for IE8 and below.
+                style.styleSheet.cssText = css;
+            } else {
+                style.appendChild(document.createTextNode(css));
+            }
+
+            head.appendChild(style);
+
+            maxWidthsUpdated = true;
+
         }
-
-
-        style.type = 'text/css';
-        if (style.styleSheet) {
-            // This is required for IE8 and below.
-            style.styleSheet.cssText = css;
-        } else {
-            style.appendChild(document.createTextNode(css));
-        }
-
-        head.appendChild(style);
-
-        maxWidthsUpdated = true;
 
     }
-
-}
 
     function getDatasetProperty(dataset, propName) {
-    return typeof Reflect !== 'undefined' ? Reflect.get(dataset, propName) : dataset[ propName ]
+        return typeof Reflect !== 'undefined' ? Reflect.get(dataset, propName) : dataset[propName]
     }
 
 
 
-    String.prototype.replaceAll = function(searchStr, replaceStr) {
-    var str = this;
-    
-    // escape regexp special characters in search string
-    searchStr = searchStr.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-    
-    return str.replace(new RegExp(searchStr, 'gi'), replaceStr);
-};
+    String.prototype.replaceAll = function (searchStr, replaceStr) {
+        var str = this;
+
+        // escape regexp special characters in search string
+        searchStr = searchStr.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+
+        return str.replace(new RegExp(searchStr, 'gi'), replaceStr);
+    };
 
     var slider, start, step, min, max;
     var sliderLabelBefore, sliderLabelAfter;
@@ -281,10 +314,10 @@ window.init = function init(el, config) {
     }
 
 
-      if (decodeURIComponent(properties.label_before) == "" && decodeURIComponent(properties.label_after) == "") {
-                headingBefore.classList.add("gv-hide");
-                headingAfter.classList.add("gv-hide");
-        }
+    if (decodeURIComponent(properties.label_before) == "" && decodeURIComponent(properties.label_after) == "") {
+        headingBefore.classList.add("gv-hide");
+        headingAfter.classList.add("gv-hide");
+    }
 
 
     // Add interactivity if not "Duo"
@@ -326,23 +359,23 @@ window.init = function init(el, config) {
         var secondPhoto = el.querySelector('#second-photo');
         var origin = el.querySelector('.noUi-origin');
         //var origin =el.querySelector('.noUi-origin');
-        slider.noUiSlider.on('start', function() {
+        slider.noUiSlider.on('start', function () {
             secondPhoto.classList.remove("slider-transition");
             secondPhoto.classList.remove("slider-transition-initial");
             origin.classList.remove("origin-smooth");
         });
-        slider.noUiSlider.on('end', function(values) {
+        slider.noUiSlider.on('end', function (values) {
             secondPhoto.classList.add("slider-transition");
             origin.classList.add("origin-smooth");
             if (interactiveType == "slider") {
                 if (values < 5) {
                     slider.noUiSlider.set(0);
-                    values=0;
+                    values = 0;
                 }
 
                 if (values > 95) {
                     slider.noUiSlider.set(100);
-                    values=100;
+                    values = 100;
                 }
             }
             // secondPhoto.style.width = values + "%";
@@ -350,7 +383,7 @@ window.init = function init(el, config) {
             // secondPhoto.classList.add("slider-transition");
 
         });
-        slider.noUiSlider.on('update', function(values, handle) {
+        slider.noUiSlider.on('update', function (values, handle) {
             if (typeof ga !== 'undefined') {
                 fireAnalytics(properties);
             }
@@ -363,9 +396,9 @@ window.init = function init(el, config) {
 
                 //console.log(origin.style.left);
                 //origin =el.querySelector('.noUi-origin');
-                //secondPhoto.style.width = values + "%";
-                secondPhoto.style.clipPath = "inset(0 0 0 " + values + "%)";
-                secondPhoto.style["-webkit-clip-path"] = "inset(0 0 0 " + values + "%)";
+                secondPhoto.style.width = values + "%";
+                //secondPhoto.style.clipPath = "inset(0 0 0 " + values + "%)";
+                //secondPhoto.style["-webkit-clip-path"] = "inset(0 0 0 " + values + "%)";
                 //secondPhoto.style.width = origin.style.left;
                 updateLabelVisibility(values, sliderLabelBefore, sliderLabelAfter);
             }
@@ -377,9 +410,9 @@ window.init = function init(el, config) {
 
             var fadeTimeout;
 
-            photoContainer.addEventListener('click', function() {
+            photoContainer.addEventListener('click', function () {
                 if (typeof ga !== 'undefined') {
-                fireAnalytics(properties);
+                    fireAnalytics(properties);
                 }
 
 
@@ -389,7 +422,7 @@ window.init = function init(el, config) {
                 var addUp = targetValue > currentValue ? true : false;
 
                 function setSlider() {
-                    fadeTimeout = setTimeout(function() {
+                    fadeTimeout = setTimeout(function () {
                         if (addUp) {
                             currentValue += 0.05;
                         } else {
@@ -416,13 +449,13 @@ window.init = function init(el, config) {
             var photoContainer = el.querySelector('.photos-wrapper-container');
 
 
-            photoContainer.addEventListener('click', function(e) {
+            photoContainer.addEventListener('click', function (e) {
                 fireAnalytics(properties);
                 //alert(e.clientX);
                 //alert(window.innerWidth);
                 //var secondPhoto = el.querySelector('#second-photo');
 
-            //secondPhoto.classList.add("slider-transition");
+                //secondPhoto.classList.add("slider-transition");
 
 
             })
@@ -487,10 +520,10 @@ function checkIfInView(d) {
 
 function startWidget() {
     if (properties.disable_anim == undefined || properties.disable_anim == "") {
-    document.querySelector('#second-photo').classList.add("slider-transition-initial");
-    document.querySelector('#slider-2').classList.add("fade-in");
+        document.querySelector('#second-photo').classList.add("slider-transition-initial");
+        document.querySelector('#slider-2').classList.add("fade-in");
     } else {
-     document.querySelector('#slider-2').classList.add("no-fade-in");
+        document.querySelector('#slider-2').classList.add("no-fade-in");
     }
     document.querySelector('#second-photo').classList.remove("gv-hide");
     var origin = containerEl.querySelector('.noUi-origin');
@@ -511,10 +544,10 @@ function checkAndroidApp(locationObj) {
     var isAndroidApp = (detect.isAndroid() && (locationObj.protocol === "file://" || locationObj.protocol === "file:")) ? true : false;
 
     if (isAndroidApp) {
-      interactiveType = "duo"; // Force duo mode on Android app to solve swipe problems in iframe
+        interactiveType = "duo"; // Force duo mode on Android app to solve swipe problems in iframe
     }
 
-    buildApp( containerEl );
+    buildApp(containerEl);
     document.querySelector('#second-photo').classList.remove("gv-hide");
 
 }

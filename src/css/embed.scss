@@ -138,8 +138,8 @@ body {
 
         #second-photo {
             width: 100%;
-            clip-path: inset(0 0 0 50%);
-            -webkit-clip-path: inset(0 0 0 50%);
+            // clip-path: inset(0 0 0 50%);
+            // -webkit-clip-path: inset(0 0 0 50%);
 
             &.gv-hide {
                 display: none;
@@ -148,16 +148,16 @@ body {
 
         .view-container:nth-of-type(2) .photo-container {
             position: absolute;
-            //overflow: hidden;
+            overflow: hidden;
             height: 100%;
             //border-right: 10px solid #fff;
 
             &.slider-transition {
-                //transition: width 0.3s;
-                transition: clip-path 0.3s;
-                transition: -webkit-clip-path 0.3s;
-                -webkit-transition: -webkit-clip-path 0.3s;
-                -webkit-transition: clip-path 0.3s;
+                transition: width 0.3s;
+                // transition: clip-path 0.3s;
+                // transition: -webkit-clip-path 0.3s;
+                // -webkit-transition: -webkit-clip-path 0.3s;
+                // -webkit-transition: clip-path 0.3s;
             }
 
             &.slider-transition-initial {
@@ -173,19 +173,19 @@ body {
 
         @keyframes cd-bounce-in {
             0% {
-                //width: 0;
-                clip-path: inset(0 0 0 0);
-                -webkit-clip-path: inset(0 0 0 0);
+                width: 0;
+                // clip-path: inset(0 0 0 0);
+                // -webkit-clip-path: inset(0 0 0 0);
             }
             60% {
-                //width: 55%;
-                clip-path: inset(0 0 0 55%);
-                -webkit-clip-path: inset(0 0 0 55%);
+                width: 55%;
+                // clip-path: inset(0 0 0 55%);
+                // -webkit-clip-path: inset(0 0 0 55%);
             }
             100% {
-                //width: 50%;
-                clip-path: inset(0 0 0 50%);
-                -webkit-clip-path: inset(0 0 0 50%);
+                width: 50%;
+                // clip-path: inset(0 0 0 50%);
+                // -webkit-clip-path: inset(0 0 0 50%);
             }
         }
 
