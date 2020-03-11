@@ -448,6 +448,8 @@ function buildApp(el) {
 
             var photoContainer = el.querySelector('.photos-wrapper-container');
 
+            //var wrapperEl = document.querySelector("#interactive-now-and-then-container");
+
 
             photoContainer.addEventListener('click', function (e) {
                 fireAnalytics(properties);
@@ -459,6 +461,30 @@ function buildApp(el) {
 
 
             })
+
+            // wrapperEl.addEventListener('touchstart', function(e){
+            //    //console.log("start");
+            // }, false);
+
+            // wrapperEl.addEventListener('touchend', function(e){
+            //     //console.log("end");
+            //  }, false);
+
+            // document.addEventListener('touchstart', ( event ) => {
+            //     // down = 1;
+            //     event.stopPropagation();
+            // }, false);
+        
+            // document.addEventListener('touchend', ( event ) => {
+            //     // down = 0;
+            //     event.stopPropagation();
+            // }, false);
+
+            // document.addEventListener('touchmove', ( event ) => {
+            //     // down = 0;
+            //     event.stopPropagation();
+
+            // }, false);
 
 
 
@@ -543,7 +569,13 @@ function checkAndroidApp(locationObj) {
     //console.log("protocol=" + locationObj.protocol);
     var isAndroidApp = (detect.isAndroid() && (locationObj.protocol === "file://" || locationObj.protocol === "file:")) ? true : false;
 
-    if (isAndroidApp) {
+    //var isAndroidApp = ( detect.isAndroid() && window.location.origin === "file://" ) ? true : false;
+    //var isIOSApp = ( detect.isIOS() && window.location.origin === "file://" ) ? true : false;
+    var isIOSApp = (detect.isIOS() && (locationObj.protocol === "file://" || locationObj.protocol === "file:")) ? true : false;
+    //var isAndroid = ( detect.isAndroid() ) ? true : false;
+    //var isIOS = ( detect.isIOS() ) ? true : false;
+
+    if (isAndroidApp || isIOSApp) {
         interactiveType = "duo"; // Force duo mode on Android app to solve swipe problems in iframe
     }
 
