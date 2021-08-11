@@ -1,4 +1,5 @@
-import iframeMessenger from 'guardian/iframe-messenger'
+//import iframeMessenger from 'guardian/iframe-messenger'
+import iframeMessenger from './iframeMessenger'
 import embedHTML from './text/embed.html!text'
 import noUiSlider from 'nouislider'
 import detect from './detect'
@@ -140,12 +141,12 @@ function buildApp(el) {
 
         if (interactiveType != "slider") {
 
-            el.querySelector('#first-photo img').src = properties[photoSize + "_before"];
-            el.querySelector('#second-photo img').src = properties[photoSize + "_after"];
+            el.querySelector('#first-photo img').src = "https:" + properties[photoSize + "_before"];
+            el.querySelector('#second-photo img').src = "https:" + properties[photoSize + "_after"];
 
         } else {
-            el.querySelector('#first-photo img').src = properties[photoSize + "_after"];
-            el.querySelector('#second-photo img').src = properties[photoSize + "_before"];
+            el.querySelector('#first-photo img').src = "https:" + properties[photoSize + "_after"];
+            el.querySelector('#second-photo img').src = "https:" + properties[photoSize + "_before"];
         }
 
     } else {
