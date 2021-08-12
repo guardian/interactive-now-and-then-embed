@@ -59,7 +59,15 @@ window.init = function init(el, config) {
 
     if ((properties.override == undefined || properties.override == "") && (properties.disable_anim == undefined || properties.disable_anim == "")) {
 
+        try {
+
         iframeMessenger.getLocation(checkAndroidApp);
+
+        } catch (error) {
+            //console.log("ERROR");
+            buildApp(containerEl);
+            startWidget();
+        }
 
     } else {
         buildApp(containerEl);
