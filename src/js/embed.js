@@ -18,6 +18,8 @@ var maxWidthsUpdated = false;
 
 var sld;
 
+var isAMP = false;
+
 var containerEl, interactiveType, loadHtmlImagery = false;
 
 window.init = function init(el, config) {
@@ -30,6 +32,14 @@ window.init = function init(el, config) {
     iframeMessenger.enableAutoResize();
 
     el.innerHTML = embedHTML;
+
+    var location = String(document.location);
+
+
+    if (location.substring(location.length - 5) == "amp=1") {
+        isAMP = true;
+    }
+
 
     var metadata = document.location.search;
 
@@ -57,21 +67,14 @@ window.init = function init(el, config) {
         properties.label_after = "";
     }
 
-    if ((properties.override == undefined || properties.override == "") && (properties.disable_anim == undefined || properties.disable_anim == "")) {
-
-        try {
+    if ((properties.override == undefined || properties.override == "") && (properties.disable_anim == undefined || properties.disable_anim == "") && !isAMP) {
 
         iframeMessenger.getLocation(checkAndroidApp);
-
-        } catch (error) {
-            //console.log("ERROR");
-            buildApp(containerEl);
-            startWidget();
-        }
 
     } else {
         buildApp(containerEl);
         startWidget();
+        setTimeout(function(){  iframeMessenger.resize(); }, 10000);
     }
 
     // buildApp( containerEl ); // Uncomment if testing locally
