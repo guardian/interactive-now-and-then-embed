@@ -40,7 +40,7 @@
     }
   },
   "dependencies": {
-    "jspm": "^0.16.34",
+    "jspm": "^3.3.3",
     "node-sass": "^4.13.1"
   }
 }
